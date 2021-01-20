@@ -36,33 +36,40 @@ public class ZRouter {
         return INSTANCE;
     }
 
+    public static boolean routersRegistered = false;
+    public void registerRouter() {
+
+    }
     public void init(Context context) {
-        Set<String> classSet = new HashSet<>();
-        try {
-            String sourceDir = context.getPackageManager().getApplicationInfo(context.getPackageName(), 0).sourceDir;
-            DexFile dexFile = new DexFile(sourceDir);
-            while (dexFile.entries().hasMoreElements()) {
-                String entry = dexFile.entries().nextElement();
-                classSet.add(entry);
-                Log.d(TAG, "entry: " + entry);
-            }
-
-            try {
-                Class aClass = Class.forName("");
-                ((RouteRegister)aClass.newInstance()).register(mRoutes);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            }
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!routersRegistered) {
+            registerRouter();
         }
+//        Set<String> classSet = new HashSet<>();
+//        try {
+//            String sourceDir = context.getPackageManager().getApplicationInfo(context.getPackageName(), 0).sourceDir;
+//            DexFile dexFile = new DexFile(sourceDir);
+//            while (dexFile.entries().hasMoreElements()) {
+//                String entry = dexFile.entries().nextElement();
+//                classSet.add(entry);
+//                Log.d(TAG, "entry: " + entry);
+//            }
+//
+//            try {
+//                Class aClass = Class.forName("");
+//                ((RouteRegister)aClass.newInstance()).register(mRoutes);
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            } catch (InstantiationException e) {
+//                e.printStackTrace();
+//            }
+//
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void register(String path, String activity) {

@@ -5,16 +5,10 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Choreographer;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.Router;
-import com.quxiangtech.ModuleRouteRegister;
-import com.quxiangtech.ZRouteTestActivity;
 import com.quxiangtech.zrouter.ZRouter;
 
 public class TestApplication extends Application {
@@ -106,10 +100,10 @@ public class TestApplication extends Application {
         Log.d(TAG, "onCreate");
         registerActivityLifecycleCallbacks(new ActivityLifeCycleCallback());
         Choreographer.getInstance().postFrameCallback(new FPSFrameCallback(System.nanoTime()));
-//        ZRouter.getInstance().init(getApplicationContext());
+        ZRouter.getInstance().init(getApplicationContext());
 
-        ModuleRouteRegister register = new ModuleRouteRegister();
-        register.register(ZRouter.getInstance().mRoutes);
+//        ModuleRouteRegister register = new ModuleRouteRegister();
+//        register.register(ZRouter.getInstance().mRoutes);
 //        ZRouter.getInstance().register("/zroute/zrouteTest", ZRouteTestActivity.class);
     }
 }

@@ -30,8 +30,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
+
+import dalvik.system.DexFile;
+import dalvik.system.PathClassLoader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,6 +83,29 @@ public class MainActivity extends AppCompatActivity {
 
         reportFullyDrawn();
 
+
+        try {
+            PathClassLoader pathClassLoader = new PathClassLoader(getApplicationInfo().sourceDir, getClassLoader());
+            Class<? > c1 = pathClassLoader.loadClass("android.app.Activity");
+            Class<? > c2 = pathClassLoader.loadClass("com.Router");
+
+            DexFile dexFile = new DexFile(getApplicationInfo().sourceDir);
+            Class<? > c3 = dexFile.loadClass("android.app.Activity", pathClassLoader);
+            Class<? > c4 = dexFile.loadClass("com.Router", pathClassLoader);
+
+            DexFile dexFile2 = new DexFile(getApplicationInfo().sourceDir);
+            Class<? > c5 = dexFile2.loadClass("com.Router", getClassLoader());
+
+            Log.d(TAG, "c1 == c3: " + (c1 == c3));
+            Log.d(TAG, "c2 == c4: " + (c2 == c4));
+            Log.d(TAG, "c2 == c5: " + (c2 == c5));
+            Log.d(TAG, "c4 == c5: " + (c4 == c3));
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
