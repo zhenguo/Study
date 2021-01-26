@@ -1,4 +1,4 @@
-package com.quxiangtech.myapplication;
+package com.quxiangtech.myapplication.lock;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class LockTest {
     private int mCriticalResource = 1;
     private int mCriticalResource2 = 1;
-    private ReentrantLock mReentrantLock = new ReentrantLock();
+    private ReentrantLock mReentrantLock = new ReentrantLock(); // 适合高并发
     private Semaphore mSemaphore = new Semaphore(2); // 允许多个线程访问某个资源，适合做限流，不能保证数据的同步，需要配合Lock、synchronized
     private Thread mThread1;
     private Thread mThread2;

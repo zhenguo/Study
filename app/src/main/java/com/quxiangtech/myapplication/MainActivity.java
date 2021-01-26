@@ -1,38 +1,31 @@
 package com.quxiangtech.myapplication;
 
-import android.app.ActivityManager;
-import android.app.AlertDialog;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.os.MessageQueue;
 import android.os.PowerManager;
-import android.os.Process;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.util.LruCache;
-import android.view.Choreographer;
 import android.view.LayoutInflater;
-import android.view.WindowManager;
-import android.widget.Toast;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.quxiangtech.myapplication.lock.LockTest;
 import com.quxiangtech.myapplication.reflection.ReflectClass;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.LayoutInflaterCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import dalvik.system.DexFile;
 import dalvik.system.PathClassLoader;
@@ -41,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private LockTest mLockTest = new LockTest();
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+
+        System.out.println("onUserInteraction");
+    }
 
     private void reflectionTest() {
         ReflectClass.reflectNewInstance();
@@ -67,6 +67,28 @@ public class MainActivity extends AppCompatActivity {
 
         Handler handler = new Handler();
         reflectionTest();
+
+        AtomicReference<LockTest> reference = new AtomicReference<>();
+
+//        LayoutInflaterCompat.setFactory2(getLayoutInflater(), new LayoutInflater.Factory2() {
+//            @Nullable
+//            @Override
+//            public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+//                View view;
+//                if (-1 == name.indexOf('.')) {
+//                    view = onCreateView(context, parent, name, attrs);
+//                } else {
+//                    view = createView(context, name, null, attrs);
+//                }
+//                return view;
+//            }
+//
+//            @Nullable
+//            @Override
+//            public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+//                return null;
+//            }
+//        });
 
         mLockTest.runSyncTest();
 //        int i  = 0;
