@@ -40,6 +40,7 @@ import dalvik.system.PathClassLoader;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    private LockTest mLockTest = new LockTest();
 
     private void reflectionTest() {
         ReflectClass.reflectNewInstance();
@@ -64,7 +65,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        Handler handler = new Handler();
         reflectionTest();
+
+        mLockTest.runSyncTest();
+//        int i  = 0;
+//        do {
+//            System.out.println("死循环会不会造成ANR");
+//            Message message = new Message();
+//            handler.sendMessage(message);
+//        } while (i == 0);
     }
 
     @Override

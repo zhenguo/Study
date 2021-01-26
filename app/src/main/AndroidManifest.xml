@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.quxiangtech.JiaGuActivity" />
+
         <activity android:name="com.quxiangtech.ZRouteTestActivity">
 
         </activity>

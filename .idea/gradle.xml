@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/ZRouterCompiler" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/myjiagulibrary" />
             <option value="$PROJECT_DIR$/zrouter" />
           </set>
         </option>

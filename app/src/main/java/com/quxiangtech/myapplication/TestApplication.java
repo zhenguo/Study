@@ -101,9 +101,5 @@ public class TestApplication extends Application {
         registerActivityLifecycleCallbacks(new ActivityLifeCycleCallback());
         Choreographer.getInstance().postFrameCallback(new FPSFrameCallback(System.nanoTime()));
         ZRouter.getInstance().init(getApplicationContext());
-
-//        ModuleRouteRegister register = new ModuleRouteRegister();
-//        register.register(ZRouter.getInstance().mRoutes);
-//        ZRouter.getInstance().register("/zroute/zrouteTest", ZRouteTestActivity.class);
     }
 }

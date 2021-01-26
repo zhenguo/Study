@@ -41,6 +41,7 @@ public class ZRouter {
 
     }
     public void init(Context context) {
+        Log.d(TAG, "规范名称: " + ZRouter.class.getCanonicalName());
         if (!routersRegistered) {
             registerRouter();
         }

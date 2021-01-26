@@ -15,6 +15,9 @@ public class Test {
 
     static class ModuleRouteRegister implements RouteRegister {
 
+        public ModuleRouteRegister() {
+        }
+
         @Override
         public void register(Map<String, String> routes) {
 

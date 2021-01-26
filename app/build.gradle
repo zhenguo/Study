@@ -50,6 +50,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation project(path: ':zrouter')
     implementation project(path: ':ZRouterCompiler')
+    implementation project(path: ':myjiagulibrary')
     annotationProcessor project(path: ':ZRouterCompiler')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
