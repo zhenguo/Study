@@ -5,6 +5,7 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Choreographer;
+import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +21,6 @@ public class TestApplication extends Application {
 
         @Override
         public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
-
         }
 
         @Override
