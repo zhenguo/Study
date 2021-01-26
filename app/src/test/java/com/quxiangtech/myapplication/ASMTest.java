@@ -1,6 +1,7 @@
 package com.quxiangtech.myapplication;
 
 import org.junit.Test;
+import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
@@ -9,18 +10,20 @@ import org.objectweb.asm.Opcodes;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class ASMTest {
     @Test
     public void test() {
         try {
-            FileInputStream fis = new FileInputStream("class1");
+            FileInputStream fis = new FileInputStream("src\\test\\java\\com\\quxiangtech\\myapplication\\APTTest.java");
             ClassReader cr = new ClassReader(fis);
             ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_FRAMES);
 
-            cr.accept(new ClassVisitor(Opcodes.ASM7), ClassReader.EXPAND_FRAMES);
-            FileInputStream fos = new FileInputStream("outputclass");
+            cr.accept(new MyClassVisitor(Opcodes.ASM6), ClassReader.EXPAND_FRAMES);
+            FileOutputStream fos = new FileOutputStream("D:\\code\\git\\Study\\app\\src\\test\\java\\com\\quxiangtech\\myapplication\\APTTest_g.java");
+            fos.write(cw.toByteArray());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -28,27 +31,32 @@ public class ASMTest {
         }
     }
 
-    static class ClassVisitor extends org.objectweb.asm.ClassVisitor {
+    static class MyClassVisitor extends ClassVisitor {
 
-        public ClassVisitor(int api) {
+        public MyClassVisitor(int api) {
             super(api);
         }
 
         @Override
         public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+            System.out.println("visitMethod: " + name);
             return super.visitMethod(access, name, descriptor, signature, exceptions);
         }
+
     }
 
-    static class MethodVisitor extends org.objectweb.asm.MethodVisitor {
+    static class MyMethodVisitor extends MethodVisitor {
 
-        public MethodVisitor(int api) {
-            super(api);
+
+        public MyMethodVisitor(int api, MethodVisitor methodVisitor) {
+            super(api, methodVisitor);
         }
 
         @Override
-        public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
-            super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
+        public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
+            return super.visitAnnotation(descriptor, visible);
         }
+
+
     }
 }
