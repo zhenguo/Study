@@ -1,8 +1,17 @@
 package com.quxiangtech.myapplication;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -12,12 +21,16 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.quxiangtech.binder.BinderTest;
+import com.quxiangtech.binder.ServiceManager;
+import com.quxiangtech.binder.ServiceManagerService;
 import com.quxiangtech.myapplication.lock.LockTest;
 import com.quxiangtech.myapplication.reflection.ReflectClass;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.LayoutInflaterCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,10 +38,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import java.io.IOException;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
 import java.util.concurrent.atomic.AtomicReference;
 
 import dalvik.system.DexFile;
 import dalvik.system.PathClassLoader;
+import leakcanary.LeakCanary;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,10 +52,32 @@ public class MainActivity extends AppCompatActivity {
     private LockTest mLockTest = new LockTest();
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+//        if (BuildConfig.DEBUG) {
+//            Debug.stopMethodTracing(); // test code
+//        }
+    }
+
+    @Override
     public void onUserInteraction() {
         super.onUserInteraction();
 
+//        if (BuildConfig.DEBUG) {
+//            System.out.println("stopMethodTracing");
+//            Debug.stopMethodTracing(); // test code
+//        }
+
         System.out.println("onUserInteraction");
+        ReferenceQueue<Activity> mReferenceQueue = new ReferenceQueue<>();
+        WeakReference<Activity> mWeakReference = new WeakReference<>(this, mReferenceQueue);
+        // 测试cpu Profiler
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void reflectionTest() {
@@ -100,8 +138,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        System.out.println("onRequestPermissionsResult: " + requestCode);
+        if (requestCode == 100) {
+
+        }
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_MyApplication); // 为了在用户体验层面加快app启动速度，恢复Theme
         super.onCreate(savedInstanceState);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+        }
+
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -118,15 +172,15 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             PathClassLoader pathClassLoader = new PathClassLoader(getApplicationInfo().sourceDir, getClassLoader());
-            Class<? > c1 = pathClassLoader.loadClass("android.app.Activity");
-            Class<? > c2 = pathClassLoader.loadClass("com.Router");
+            Class<?> c1 = pathClassLoader.loadClass("android.app.Activity");
+            Class<?> c2 = pathClassLoader.loadClass("com.Router");
 
             DexFile dexFile = new DexFile(getApplicationInfo().sourceDir);
-            Class<? > c3 = dexFile.loadClass("android.app.Activity", pathClassLoader);
-            Class<? > c4 = dexFile.loadClass("com.Router", pathClassLoader);
+            Class<?> c3 = dexFile.loadClass("android.app.Activity", pathClassLoader);
+            Class<?> c4 = dexFile.loadClass("com.Router", pathClassLoader);
 
             DexFile dexFile2 = new DexFile(getApplicationInfo().sourceDir);
-            Class<? > c5 = dexFile2.loadClass("com.Router", getClassLoader());
+            Class<?> c5 = dexFile2.loadClass("com.Router", getClassLoader());
 
             Log.d(TAG, "c1 == c3: " + (c1 == c3));
             Log.d(TAG, "c2 == c4: " + (c2 == c4));

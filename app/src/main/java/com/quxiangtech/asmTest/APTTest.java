@@ -1,10 +1,7 @@
-package com.quxiangtech.myapplication;
-
-import org.junit.Test;
+package com.quxiangtech.asmTest;
 
 public class APTTest {
 
-    @Test
     public void testAnnotation() {
         System.out.println("testAnnotation");
     }

@@ -2,20 +2,49 @@ package com.quxiangtech.myapplication;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Service;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Debug;
+import android.os.Environment;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Choreographer;
 import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
+import com.quxiangtech.binder.BinderTest;
+import com.quxiangtech.binder.ServiceManager;
+import com.quxiangtech.binder.ServiceManagerService;
 import com.quxiangtech.zrouter.ZRouter;
+
+import java.io.File;
+import java.util.Arrays;
 
 public class TestApplication extends Application {
     private static final String TAG = "TestApplication";
     private final Object mLock = new Object();
     private Activity mCurrentActivity;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+
+//        if (BuildConfig.DEBUG) {
+//            File file = base.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+//            if (file != null) {
+//                String path = file.getAbsolutePath() + "/trace";
+//                System.out.println("startMethodTracing: " + path);
+//                Debug.startMethodTracingSampling(path, 8 * 1024 * 1024, 1_000);
+//            }
+//        }
+    }
 
     class ActivityLifeCycleCallback implements ActivityLifecycleCallbacks {
 
@@ -29,7 +58,7 @@ public class TestApplication extends Application {
         }
 
         @Override
-        public void onActivityResumed(@NonNull Activity activity) {
+        public synchronized void onActivityResumed(@NonNull Activity activity) {
             Log.d(TAG, "onActivityResumed: " + activity.getClass().getSimpleName());
             synchronized (mLock) {
                 mCurrentActivity = activity;
@@ -101,5 +130,27 @@ public class TestApplication extends Application {
         registerActivityLifecycleCallbacks(new ActivityLifeCycleCallback());
         Choreographer.getInstance().postFrameCallback(new FPSFrameCallback(System.nanoTime()));
         ZRouter.getInstance().init(getApplicationContext());
+
+        final ServiceManager[] mService = new ServiceManager[1];
+        bindService(new Intent(this, ServiceManagerService.class), new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                Log.d(TAG, "onServiceConnected");
+//                mService[0] = (ServiceManager) service;
+//                mService[0].addCapability("test", new BinderTest());
+//                try {
+//                    BinderTest binderTests = (BinderTest) mService[0].getCapability("test");
+//                    binderTests.testBinder();
+//                } catch (Exception e) {
+//                    Log.e(TAG, "onServiceConnected: ", e);
+//                    e.printStackTrace();
+//                }
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                mService[0] = null;
+            }
+        }, Service.BIND_AUTO_CREATE);
     }
 }
