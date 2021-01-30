@@ -13,6 +13,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/SkinManager" />
+            <option value="$PROJECT_DIR$/ZPlugin" />
             <option value="$PROJECT_DIR$/ZRouterCompiler" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />

@@ -1,3 +1,4 @@
+include ':ZPlugin'
 include ':SkinManager'
 include ':myjiagulibrary'
 include ':ZRouterCompiler'

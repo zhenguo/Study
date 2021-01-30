@@ -17,6 +17,9 @@ import com.quxiangtech.myapplication.R;
 import com.quxiangtech.myapplication.RemoteService;
 import com.quxiangtech.zrouter.ZRouter;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -46,6 +49,25 @@ public class HomeFragment extends Fragment {
                 try {
                     ZRouter.getInstance().startActivity(getActivity(), "/zroute/zrouteTest");
                 } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        root.findViewById(R.id.plugin_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Class<?> pluginTestClass = Class.forName("com.quxiangtech.zplugin.PluginTest");
+                    Method printf = pluginTestClass.getMethod("printf");
+                    printf.invoke(null);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 }
             }

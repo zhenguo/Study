@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+//        Looper.getMainLooper().setMessageLogging();
         Handler handler = new Handler();
         reflectionTest();
 
