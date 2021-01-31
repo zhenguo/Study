@@ -1,5 +1,6 @@
 package com.quxiangtech.myapplication.ui.home;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.quxiangtech.myapplication.R;
 import com.quxiangtech.myapplication.RemoteService;
+import com.quxiangtech.plugin.HookUtil;
+import com.quxiangtech.plugin.LoadUtil;
+import com.quxiangtech.plugin.ProxyActivity;
 import com.quxiangtech.zrouter.ZRouter;
 
 import java.lang.reflect.InvocationTargetException;
@@ -70,6 +74,16 @@ public class HomeFragment extends Fragment {
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 }
+
+
+
+//                Intent pluginIntent = new Intent();
+//                pluginIntent.setClassName("com.quxiangtech.myapplication", "com.quxiangtech.plugin.ProxyActivity"); // ProxyActivity 已经注册在AndroidManifest.xml，跳过AMS检查
+//                startActivity(pluginIntent);
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName("com.quxiangtech.zplugin", "com.quxiangtech.zplugin.TestPluginActivity"));
+//                intent.setClassName("com.quxiangtech.plugin", "TestPluginActivity");
+                startActivity(intent);
             }
         });
         return root;

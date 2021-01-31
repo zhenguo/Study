@@ -36,6 +36,7 @@
         <activity android:name="com.quxiangtech.ZRouteTestActivity">
 
         </activity>
+        <activity android:name="com.quxiangtech.plugin.ProxyActivity" />
 
         <service
             android:name=".MotionDetectorService"

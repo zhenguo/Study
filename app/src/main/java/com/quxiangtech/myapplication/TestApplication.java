@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 import com.quxiangtech.binder.BinderTest;
 import com.quxiangtech.binder.ServiceManager;
 import com.quxiangtech.binder.ServiceManagerService;
+import com.quxiangtech.plugin.HookUtil;
 import com.quxiangtech.plugin.LoadUtil;
 import com.quxiangtech.zrouter.ZRouter;
 
@@ -128,6 +129,7 @@ public class TestApplication extends Application {
         super.onCreate();
 
         LoadUtil.loadPlugin(this);
+
         Log.d(TAG, "onCreate");
         registerActivityLifecycleCallbacks(new ActivityLifeCycleCallback());
         Choreographer.getInstance().postFrameCallback(new FPSFrameCallback(System.nanoTime()));

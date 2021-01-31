@@ -27,6 +27,7 @@ import com.quxiangtech.binder.ServiceManager;
 import com.quxiangtech.binder.ServiceManagerService;
 import com.quxiangtech.myapplication.lock.LockTest;
 import com.quxiangtech.myapplication.reflection.ReflectClass;
+import com.quxiangtech.plugin.HookUtil;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -153,6 +154,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_MyApplication); // 为了在用户体验层面加快app启动速度，恢复Theme
         super.onCreate(savedInstanceState);
+
+        HookUtil.hookAMS();
+        HookUtil.hookActivityThreadH();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
