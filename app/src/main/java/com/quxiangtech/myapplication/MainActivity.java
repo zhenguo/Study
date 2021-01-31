@@ -2,42 +2,26 @@ package com.quxiangtech.myapplication;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
-import android.os.IBinder;
-import android.os.Looper;
 import android.os.PowerManager;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.util.LruCache;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.quxiangtech.binder.BinderTest;
-import com.quxiangtech.binder.ServiceManager;
-import com.quxiangtech.binder.ServiceManagerService;
-import com.quxiangtech.myapplication.lock.LockTest;
-import com.quxiangtech.myapplication.reflection.ReflectClass;
-import com.quxiangtech.plugin.HookUtil;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.view.LayoutInflaterCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.quxiangtech.myapplication.lock.LockTest;
+import com.quxiangtech.myapplication.reflection.ReflectClass;
+import com.quxiangtech.plugin.HookUtil;
 
 import java.io.IOException;
 import java.lang.ref.ReferenceQueue;
@@ -46,7 +30,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import dalvik.system.DexFile;
 import dalvik.system.PathClassLoader;
-import leakcanary.LeakCanary;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-
+;
 //        if (BuildConfig.DEBUG) {
 //            Debug.stopMethodTracing(); // test code
 //        }

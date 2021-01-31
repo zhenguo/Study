@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
@@ -123,6 +124,18 @@ public class TestApplication extends Application {
             Choreographer.getInstance().postFrameCallback(this);
         }
     }
+
+    private Resources mPluginResources;
+
+//    @Override
+//    public Resources getResources() {
+//        System.out.println("getResources: " + mPluginResources);
+//        if (mPluginResources == null) {
+//            mPluginResources = LoadUtil.loadPluginResource(getApplicationContext());
+//        }
+//
+//        return mPluginResources != null ? mPluginResources : super.getResources();
+//    }
 
     @Override
     public void onCreate() {
