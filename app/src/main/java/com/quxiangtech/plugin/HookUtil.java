@@ -125,7 +125,8 @@ public class HookUtil {
                             // 在此个性Intent参数
                             System.out.println("invoke: " + method.getName());
 
-                            if (method.getName() != null && TextUtils.equals(method.getName(), "startActivity")) {
+                            method.getName();
+                            if (TextUtils.equals(method.getName(), "startActivity")) {
                                 int index = -1;
                                 for (int i = 0; i < args.length; i++) {
                                     if (args[i] instanceof Intent) {

@@ -21,9 +21,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:theme="@style/Theme.MyApplication.Launcher"
+            android:name="com.quxiangtech.launchMode.DActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name="com.quxiangtech.launchMode.CActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name="com.quxiangtech.launchMode.BActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name="com.quxiangtech.launchMode.AActivity"
+            android:launchMode="singleInstance" />
+        <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyApplication.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.home.HomeFragment">
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/text_home"
@@ -14,39 +12,56 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:text="我是A"
         android:textAlignment="center"
         android:textSize="20sp" />
 
     <Button
-        android:text="Z路由测试"
-        android:id="@+id/zroute_test"
+        android:id="@+id/launch_a"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:onClick="launchA"
+        android:text="启动A"
         android:textAlignment="center"
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/plugin_test"
+        android:id="@+id/launch_b"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="插件化测试"
+        android:onClick="launchB"
+        android:text="启动B"
         android:textAlignment="center"
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/launch_mode_test"
+        android:id="@+id/launch_c"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="启动模式测试"
+        android:onClick="launchC"
+        android:text="启动C"
         android:textAlignment="center"
         android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/launch_d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="launchD"
+        android:text="启动D"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
 </LinearLayout>
