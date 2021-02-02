@@ -13,6 +13,7 @@ import com.quxiangtech.myapplication.R;
 public class AActivity extends AppCompatActivity {
     private static final String TAG = "AActivity";
 
+    // ? 泛型通配符规定了类型参数的上限与下限，实现了安全访问，比如不能set、只能get
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
