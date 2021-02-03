@@ -2,6 +2,8 @@ package com.quxiangtech.myapplication.ui.home;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +31,7 @@ import java.lang.reflect.Method;
 public class HomeFragment extends Fragment {
 
     private Object mLock;
+
     void test() {
         synchronized (mLock) {
             // 面试问题： mLock没有初始化的话会报异常吗
@@ -37,6 +41,7 @@ public class HomeFragment extends Fragment {
             System.out.println("mLock 没有初始化");
         }
     }
+
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -94,6 +99,19 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), AActivity.class));
+            }
+        });
+        root.findViewById(R.id.reslove_activity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName("com.quxiangtech.zplugin", "com.quxiangtech.zplugin.TestPluginActivity"));
+                ResolveInfo resolveInfo = v.getContext().getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                if (resolveInfo != null) {
+                    System.out.println("resolveInfo: " + resolveInfo.toString());
+                } else {
+                    Toast.makeText(v.getContext(), "找不到未在AndroidManifest.xml中注册的Activity", Toast.LENGTH_LONG).show();
+                }
             }
         });
         root.findViewById(R.id.plugin_test).setOnClickListener(new View.OnClickListener() {

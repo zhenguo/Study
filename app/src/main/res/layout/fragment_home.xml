@@ -60,4 +60,15 @@
         android:text="View注入测试"
         android:textAlignment="center"
         android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/reslove_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="验证Activity注册"
+        android:textAlignment="center"
+        android:textSize="20sp" />
 </LinearLayout>
