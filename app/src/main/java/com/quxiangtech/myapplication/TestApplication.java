@@ -23,11 +23,13 @@ import androidx.core.content.ContextCompat;
 import com.quxiangtech.binder.BinderTest;
 import com.quxiangtech.binder.ServiceManager;
 import com.quxiangtech.binder.ServiceManagerService;
+import com.quxiangtech.hotfix.HotFix;
 import com.quxiangtech.plugin.HookUtil;
 import com.quxiangtech.plugin.LoadUtil;
 import com.quxiangtech.zrouter.ZRouter;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 public class TestApplication extends Application {
@@ -39,6 +41,19 @@ public class TestApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
 
+        try {
+            HotFix.getInstance().init(this, base.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/patch.dex");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
 //        if (BuildConfig.DEBUG) {
 //            File file = base.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
 //            if (file != null) {

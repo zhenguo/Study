@@ -20,6 +20,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.quxiangtech.hotfix.HotFixTest;
 import com.quxiangtech.myapplication.lock.LockTest;
 import com.quxiangtech.myapplication.reflection.ReflectClass;
 import com.quxiangtech.plugin.HookUtil;
@@ -64,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
+
+        HotFixTest hotFixTest = new HotFixTest();
+        hotFixTest.throwException();
     }
 
     private void reflectionTest() {
