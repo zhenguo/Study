@@ -50,6 +50,7 @@
         </activity>
         <activity android:name="com.quxiangtech.plugin.ProxyActivity" />
         <activity android:name="com.quxiangtech.injectView.InjectActivity" />
+        <activity android:name="com.quxiangtech.anr.ANRActivity" />
 
         <service
             android:name=".MotionDetectorService"

@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.quxiangtech.anr.ANRActivity;
 import com.quxiangtech.injectView.InjectActivity;
 import com.quxiangtech.launchMode.AActivity;
 import com.quxiangtech.launchMode.DActivity;
@@ -78,6 +79,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        root.findViewById(R.id.anr_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ANRActivity.class);
+                startActivity(intent);
+            }
+        });
         root.findViewById(R.id.zroute_test).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
