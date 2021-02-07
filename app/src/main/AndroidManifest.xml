@@ -51,6 +51,7 @@
         <activity android:name="com.quxiangtech.plugin.ProxyActivity" />
         <activity android:name="com.quxiangtech.injectView.InjectActivity" />
         <activity android:name="com.quxiangtech.anr.ANRActivity" />
+        <activity android:name="com.quxiangtech.binder.localBinder.BindingActivity" />
 
         <service
             android:name=".MotionDetectorService"
@@ -65,6 +66,7 @@
         <service
             android:name="com.quxiangtech.binder.ServiceManagerService"
             android:process=":service_manager" />
+        <service android:name="com.quxiangtech.binder.localBinder.LocalService" />
     </application>
 
 </manifest>
