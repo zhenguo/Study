@@ -24,7 +24,6 @@ public abstract class BaseActivity<T extends BasePresenter, V extends IBaseView>
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        startActivity();
         setContentView(getLayoutId());
         getLifecycle().addObserver(mPresenter);
         mPresenter = createPresenter();

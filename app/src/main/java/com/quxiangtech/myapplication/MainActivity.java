@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -20,10 +19,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.quxiangtech.contextTest.ContextTest;
 import com.quxiangtech.hotfix.HotFixTest;
 import com.quxiangtech.myapplication.lock.LockTest;
 import com.quxiangtech.myapplication.reflection.ReflectClass;
-import com.quxiangtech.plugin.HookUtil;
 
 import java.io.IOException;
 import java.lang.ref.ReferenceQueue;
@@ -68,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
         HotFixTest hotFixTest = new HotFixTest();
         hotFixTest.throwException();
+
+        ContextTest contextTest = new ContextTest();
+        contextTest.inflateViewUsingActivityContext(this);
+        contextTest.inflateViewUsingAppContext(getApplication());
+        contextTest.startActivityUsingAppContext(getApplication());
     }
 
     private void reflectionTest() {
