@@ -3,7 +3,10 @@ package com.quxiangtech.myapplication;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -20,6 +23,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.quxiangtech.contextTest.ContextTest;
+import com.quxiangtech.binder.LargeBitmapBinder;
 import com.quxiangtech.hotfix.HotFixTest;
 import com.quxiangtech.myapplication.lock.LockTest;
 import com.quxiangtech.myapplication.reflection.ReflectClass;
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+
 ;
 //        if (BuildConfig.DEBUG) {
 //            Debug.stopMethodTracing(); // test code
@@ -140,6 +145,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    public void onContentChanged() {
+        super.onContentChanged();
     }
 
     @Override

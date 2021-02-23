@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
 import android.os.IBinder;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Choreographer;
 import android.view.LayoutInflater;
@@ -154,6 +155,25 @@ public class TestApplication extends Application {
 
     @Override
     public void onCreate() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectCustomSlowCalls()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()
+                .detectResourceMismatches()
+                .detectUnbufferedIo()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectActivityLeaks()
+                .detectCleartextNetwork()
+                .detectContentUriWithoutPermission()
+                .detectCredentialProtectedWhileLocked()
+                .detectFileUriExposure()
+                .detectImplicitDirectBoot()
+                .detectLeakedClosableObjects()
+                .detectLeakedRegistrationObjects()
+                .detectLeakedSqlLiteObjects()
+                .detectFileUriExposure().build());
         super.onCreate();
 
         LoadUtil.loadPlugin(this);
