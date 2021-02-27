@@ -32,6 +32,10 @@ import com.quxiangtech.zrouter.ZRouter;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class TestApplication extends Application {
     private static final String TAG = "TestApplication";
@@ -182,6 +186,8 @@ public class TestApplication extends Application {
         registerActivityLifecycleCallbacks(new ActivityLifeCycleCallback());
         Choreographer.getInstance().postFrameCallback(new FPSFrameCallback(System.nanoTime()));
         ZRouter.getInstance().init(getApplicationContext());
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
 
         final ServiceManager[] mService = new ServiceManager[1];
         bindService(new Intent(this, ServiceManagerService.class), new ServiceConnection() {

@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ public class BindingActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             LocalService.LocalBinder localBinder = (LocalService.LocalBinder) service;
             mLocalService = localBinder.getService();
+
             mBound = true;
         }
 

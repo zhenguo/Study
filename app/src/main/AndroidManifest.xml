@@ -52,6 +52,7 @@
         <activity android:name="com.quxiangtech.injectView.InjectActivity" />
         <activity android:name="com.quxiangtech.anr.ANRActivity" />
         <activity android:name="com.quxiangtech.binder.localBinder.BindingActivity" />
+        <activity android:name="com.quxiangtech.clickevent.ClickActivity" />
 
         <service
             android:name=".MotionDetectorService"
