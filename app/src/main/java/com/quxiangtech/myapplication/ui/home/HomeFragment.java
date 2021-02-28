@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.quxiangtech.anr.ANRActivity;
 import com.quxiangtech.binder.localBinder.BindingActivity;
+import com.quxiangtech.clickevent.ClickActivity;
 import com.quxiangtech.injectView.InjectActivity;
 import com.quxiangtech.launchMode.AActivity;
 import com.quxiangtech.launchMode.DActivity;
@@ -153,6 +154,12 @@ public class HomeFragment extends Fragment {
                 intent.setComponent(new ComponentName("com.quxiangtech.zplugin", "com.quxiangtech.zplugin.TestPluginActivity"));
 //                intent.setClassName("com.quxiangtech.plugin", "TestPluginActivity");
                 startActivity(intent);
+            }
+        });
+        root.findViewById(R.id.event_comflict).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), ClickActivity.class));
             }
         });
         return root;
