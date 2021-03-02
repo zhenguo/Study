@@ -31,6 +31,7 @@
             android:launchMode="singleInstance" />
         <activity
             android:name="com.quxiangtech.launchMode.AActivity"
+            android:taskAffinity="com.study.affinity"
             android:launchMode="singleInstance" />
         <activity
             android:name=".MainActivity"
@@ -57,7 +58,8 @@
         <service
             android:name=".MotionDetectorService"
             android:enabled="true"
-            android:process=":motion_detector">
+            android:process=":motion_detector"
+            android:exported="false">
             <intent-filter>
                 <action android:name="custom.intent.action.motion" />
             </intent-filter>
@@ -69,9 +71,10 @@
             android:process=":service_manager" />
         <service android:name="com.quxiangtech.binder.localBinder.LocalService" />
 
-        <provider
-            android:authorities="com.quxiangtech.testPro"
-            android:name="androidx.core.content.FileProvider"/>
+<!--        <provider-->
+<!--            android:authorities="com.quxiangtech.testPro"-->
+<!--            android:name="androidx.core.content.FileProvider"-->
+<!--            android:exported="false" />-->
     </application>
 
 </manifest>

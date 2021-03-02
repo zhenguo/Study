@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         ContextTest contextTest = new ContextTest();
         contextTest.inflateViewUsingActivityContext(this);
         contextTest.inflateViewUsingAppContext(getApplication());
-        contextTest.startActivityUsingAppContext(getApplication());
+//        contextTest.startActivityUsingAppContext(getApplication());
     }
 
     private void reflectionTest() {

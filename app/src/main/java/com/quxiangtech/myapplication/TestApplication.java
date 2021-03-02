@@ -9,33 +9,24 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.Choreographer;
-import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
-import com.quxiangtech.binder.BinderTest;
 import com.quxiangtech.binder.ServiceManager;
 import com.quxiangtech.binder.ServiceManagerService;
 import com.quxiangtech.hotfix.HotFix;
-import com.quxiangtech.plugin.HookUtil;
 import com.quxiangtech.plugin.LoadUtil;
 import com.quxiangtech.zrouter.ZRouter;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class TestApplication extends Application {
     private static final String TAG = "TestApplication";
