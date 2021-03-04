@@ -1,0 +1,151 @@
+manifest
+
+    <instrumentation
+        android:name="com.byteww.llqql.library.clntv.daemon.ViInstrumentation"			（类名自己换）
+        android:targetPackage="${applicationId}"
+        android:targetProcesses="${applicationId},${applicationId}:resident" />
+
+在application的attachBaseContext调用
+
+nk.getInstance().init(base);
+
+native代码
+
+int lockFileByName(const char* name) {
+    int ret = 0;
+    int fd = open(name,0);
+    if (fd == -1){
+        fd = open(name,LOCK_READ,256);
+    }
+    if (flock(fd,LOCK_EX) != -1){
+        ret = 1;
+    }
+    return ret;
+}
+
+extern "C" JNIEXPORT int JNICALL
+Java_com_vi_daemon_DaemonNative_lockFile(JNIEnv* env,
+                                                 jclass /*this*/abc,
+                                                 jstring jWaitFile){
+    const char* wait_file_name = env->GetStringUTFChars(jWaitFile,NULL);
+    lockFileByName(wait_file_name);
+    env->ReleaseStringUTFChars(jWaitFile,wait_file_name);
+}
+
+FILE* createFile(const char *a1){
+    FILE* pFile = fopen(a1, "ab+");
+    if ( pFile ){
+        pFile = (FILE *)fclose(pFile);
+    }
+    return pFile;
+}
+
+int setProcessName(JNIEnv * env,jstring processName){
+    //LOGD("forkChild step 41.");
+    jclass clazz = env->FindClass("com/vi/daemon/DaemonNative");
+    //LOGD("forkChild step 42.");
+    jmethodID method = env->GetStaticMethodID(clazz, "setProcessName", "(Ljava/lang/String;)V");
+    //LOGD("forkChild step 43.");
+    env->CallStaticVoidMethod(clazz,method,processName);
+    env->DeleteLocalRef(clazz);
+    //LOGD("forkChild step 44.");
+    return 0;
+}
+
+void waitOtherFile(JNIEnv * env,
+                   jstring jWaitFile,
+                   jstring jWaitIndicatorFile){
+    //LOGD("forkChild step 571.");
+    const char* wait_indicator_file = env->GetStringUTFChars(jWaitIndicatorFile,NULL);
+    int wait_seconds = 0;
+    while ( open(wait_indicator_file, O_RDONLY) == -1){
+        sleep(1u);
+        if (wait_seconds++ >= 30){
+            env->ReleaseStringUTFChars(jWaitIndicatorFile,wait_indicator_file);
+            return;
+        }
+    }
+    //LOGD("forkChild step 572.");
+    remove(wait_indicator_file);
+    env->ReleaseStringUTFChars(jWaitIndicatorFile,wait_indicator_file);
+    const char* wait_file_name = env->GetStringUTFChars(jWaitFile,NULL);
+    //const char* wait_indicator_file = env->GetStringUTFChars(jWaitIndicatorFile,NULL);
+    //LOGD("forkChild step 573.");
+    if (lockFileByName(wait_file_name)){
+        //LOGD("forkChild step 574.");
+        jclass clazz = env->FindClass("com/vi/daemon/DaemonNative");
+        jmethodID method = env->GetStaticMethodID(clazz, "restartProcess", "()V");
+        env->CallStaticVoidMethod(clazz,method);
+    }else{
+        //LOGD("forkChild step 575.");
+    }
+    env->ReleaseStringUTFChars(jWaitFile,wait_file_name);
+}
+
+void lockAndWait(JNIEnv * env,
+                    jstring jLockFile,
+                    jstring jWaitFile,
+                    jstring jIndicatorFile,
+                    jstring jWaitIndicatorFile){
+    //LOGD("forkChild step 51.");
+    const char* lockFileName = env->GetStringUTFChars(jLockFile,NULL);
+    createFile(lockFileName);
+    //LOGD("forkChild step 52.");
+    int lock_Status = lockFileByName(lockFileName);
+    //LOGD("forkChild step 53.");
+    if (!lock_Status){
+        //LOGD("forkChild step 54.");
+        env->ReleaseStringUTFChars(jLockFile,lockFileName);
+        return;
+    }
+    env->ReleaseStringUTFChars(jLockFile,lockFileName);
+    const char* indicator_file = env->GetStringUTFChars(jIndicatorFile,NULL);
+    //LOGD("forkChild step 55.");
+    createFile(indicator_file);
+    //LOGD("forkChild step 56.");
+    env->ReleaseStringUTFChars(jIndicatorFile,indicator_file);
+    //LOGD("forkChild step 57.");
+    waitOtherFile(env,jWaitFile,jWaitIndicatorFile);
+    //LOGD("forkChild step 58.");
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_vi_daemon_DaemonNative_forkChild(
+        JNIEnv* env,
+        jclass /*this*/abc,
+        jstring arg0,
+        jstring arg1,
+        jstring arg2,
+        jstring arg3,
+        jstring arg4) {
+/*    //std::string hello = "Hello from C++";
+    //LOGD("get hello！！！！！");
+    std::map<std::string,std::string> names;
+    get_mac_j(env, abc, names);
+    if (names.empty()){
+        names.insert(std::pair<std::string, std::string>("wlan0","wlan0"));
+    }
+    std::string mac = get_mac_n(env, names);
+    //return env->NewStringUTF(mac.c_str());*/
+    const char* processname = env->GetStringUTFChars(arg0,NULL);
+    //LOGD("forkChild processname = %s\r\n", processname);
+    env->ReleaseStringUTFChars(arg0,processname);
+    pid_t pid = fork();
+    //LOGD("forkChild step 1. pid = %d", pid);
+    if (!pid){
+        pid = fork();
+        //LOGD("forkChild step 2. pid = %d", pid);
+        if (pid >= 1){
+            exit(0);
+        }
+        //LOGD("forkChild step 3.");
+        setsid();
+        //LOGD("forkChild step 4.");
+        setProcessName(env,arg0);
+        //LOGD("forkChild step 5.");
+        lockAndWait(env,arg1,arg2,arg3,arg4);
+    }
+    //LOGD("forkChild step 6.");
+    waitpid(pid,0,0);
+    //LOGD("forkChild step 7.");
+}

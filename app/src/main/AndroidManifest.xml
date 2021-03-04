@@ -12,6 +12,11 @@
     <!-- 最后两个权限是 SD 卡访问权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <instrumentation
+        android:name="com.byteww.llqql.library.clntv.daemon.ViInstrumentation"
+        android:targetPackage="${applicationId}"
+        android:targetProcesses="${applicationId},${applicationId}:resident" />
+
     <application
         android:name=".TestApplication"
         android:allowBackup="true"
@@ -20,6 +25,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+
         <activity
             android:name="com.quxiangtech.launchMode.DActivity"
             android:launchMode="singleInstance" />
@@ -31,8 +37,8 @@
             android:launchMode="singleInstance" />
         <activity
             android:name="com.quxiangtech.launchMode.AActivity"
-            android:taskAffinity="com.study.affinity"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleInstance"
+            android:taskAffinity="com.study.affinity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -58,8 +64,8 @@
         <service
             android:name=".MotionDetectorService"
             android:enabled="true"
-            android:process=":motion_detector"
-            android:exported="false">
+            android:exported="false"
+            android:process=":motion_detector">
             <intent-filter>
                 <action android:name="custom.intent.action.motion" />
             </intent-filter>
@@ -71,10 +77,10 @@
             android:process=":service_manager" />
         <service android:name="com.quxiangtech.binder.localBinder.LocalService" />
 
-<!--        <provider-->
-<!--            android:authorities="com.quxiangtech.testPro"-->
-<!--            android:name="androidx.core.content.FileProvider"-->
-<!--            android:exported="false" />-->
+        <!--        <provider-->
+        <!--            android:authorities="com.quxiangtech.testPro"-->
+        <!--            android:name="androidx.core.content.FileProvider"-->
+        <!--            android:exported="false" />-->
     </application>
 
 </manifest>
