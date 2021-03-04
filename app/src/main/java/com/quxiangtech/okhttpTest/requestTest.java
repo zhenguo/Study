@@ -12,6 +12,7 @@ public class requestTest {
     public void okhttpTest() {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url("").build();
+
         Call call = client.newCall(request);
         try {
             call.execute(); // 同步请求

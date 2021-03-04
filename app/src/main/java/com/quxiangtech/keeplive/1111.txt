@@ -1,5 +1,23 @@
 manifest
 
+Declares an Instrumentation class that enables you to monitor an application's interaction with the system.
+The Instrumentation object is instantiated before any of the application's components.
+
+android:targetPackage
+The application that the Instrumentation object will run against. An application is identified by the package name assigned
+in its manifest file by the <manifest> element.
+
+android:targetProcesses
+The processes that the Instrumentation object will run against. A comma-separated list indicates that the instrumentation
+will run against those specific processes. A value of "*" indicates that the instrumentation will run against all processes
+of the app defined in android:targetPackage.
+
+If this value isn't provided in the manifest, the instrumentation will run only against the main process of the app
+defined in android:targetPackage.
+
+This attribute was added in API Level 26.
+
+
     <instrumentation
         android:name="com.byteww.llqql.library.clntv.daemon.ViInstrumentation"			（类名自己换）
         android:targetPackage="${applicationId}"
@@ -17,7 +35,7 @@ int lockFileByName(const char* name) {
     if (fd == -1){
         fd = open(name,LOCK_READ,256);
     }
-    if (flock(fd,LOCK_EX) != -1){
+    if (flock(fd,LOCK_EX) != -1){ LOCK_EX互斥锁
         ret = 1;
     }
     return ret;

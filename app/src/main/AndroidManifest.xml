@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <instrumentation
-        android:name="com.byteww.llqql.library.clntv.daemon.ViInstrumentation"
+        android:name="com.quxiangtech.keeplive.ViInstrumentation"
         android:targetPackage="${applicationId}"
         android:targetProcesses="${applicationId},${applicationId}:resident" />
 

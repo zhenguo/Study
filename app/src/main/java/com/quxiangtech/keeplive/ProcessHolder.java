@@ -20,6 +20,7 @@ public class ProcessHolder {
         super();
     }
 
+    // 找到当前进程名称
     public static String a(Context arg4) {
         Object v2;
         int v0 = Process.myPid();
@@ -53,6 +54,7 @@ public class ProcessHolder {
         String v1 = arg4.getPackageName();
         ProcessHolder.PROCESS_NAME = v0;
         if(arg4.getPackageName().equals(v0)) {
+            // 主进程
             ProcessHolder.IS_MAIN = true;
         }
         else {
@@ -75,7 +77,7 @@ public class ProcessHolder {
             }
         }
 
-        ProcessHolder.a = true;
+        ProcessHolder.a = true; // init只运行一次
     }
 }
 
