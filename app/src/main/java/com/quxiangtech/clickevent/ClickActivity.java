@@ -26,18 +26,6 @@ public class ClickActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_click);
         mViewPager = findViewById(R.id.viewpager);
-        mViewPager.setAdapter(new FragmentPagerAdapter() {
-            @NonNull
-            @Override
-            public Fragment getItem(int position) {
-                return null;
-            }
-
-            @Override
-            public int getCount() {
-                return 0;
-            }
-        });
         mClickBtn = findViewById(R.id.click_btn);
         mClickBtn.setOnClickListener(new View.OnClickListener() {
             @Override

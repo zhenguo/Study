@@ -105,4 +105,16 @@
         android:textAlignment="center"
         android:textSize="20sp" />
 
+    <Button
+        android:id="@+id/view_anim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="自定义View动画"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+
 </LinearLayout>

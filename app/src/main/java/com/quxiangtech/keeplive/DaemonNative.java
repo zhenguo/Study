@@ -5,7 +5,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.os.Process;
 
-import com.byteww.llqql.library.Config;
 
 import timber.log.Timber;
 
@@ -26,7 +25,8 @@ public class DaemonNative {
     public static native int lockFile(String arg0);
 
     public static void restartProcess() {
-        boolean forkProcessSwitch = Config.forkProcessSwitch();
+//        boolean forkProcessSwitch = Config.forkProcessSwitch();
+        boolean forkProcessSwitch = true;
         Timber.tag("maolei").d("restartProcess, 开关：" + forkProcessSwitch);
         Context v0 = nk.getInstance().getContext();
         if (v0 != null && forkProcessSwitch) {

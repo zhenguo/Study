@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.quxiangtech.anr.ANRActivity;
 import com.quxiangtech.binder.localBinder.BindingActivity;
 import com.quxiangtech.clickevent.ClickActivity;
+import com.quxiangtech.customViews.TestDragActivity;
 import com.quxiangtech.injectView.InjectActivity;
 import com.quxiangtech.launchMode.AActivity;
 import com.quxiangtech.launchMode.DActivity;
@@ -160,6 +161,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), ClickActivity.class));
+            }
+        });
+
+        root.findViewById(R.id.view_anim).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), TestDragActivity.class));
             }
         });
         return root;

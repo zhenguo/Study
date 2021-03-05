@@ -5,7 +5,6 @@ import android.util.Log;
 
 import androidx.core.util.ObjectsCompat;
 
-import com.byteww.llqql.library.base.BaseApplication;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -115,9 +114,9 @@ public class DaemonHelper {
         Iterator v0 = DaemonHelper.f.values().iterator();
         while (v0.hasNext()) {
             final Class clazz = (Class) v0.next();
-            if(BaseApplication.sIsDebug) {
-                Log.d("test","测试启动Service" + clazz.getSimpleName());
-            }
+//            if(BaseApplication.sIsDebug) {
+//                Log.d("test","测试启动Service" + clazz.getSimpleName());
+//            }
             if(ObjectsCompat.equals(clazz.getSimpleName(), "ResidentService")) {
                 ServiceUtils.startForegroundService(arg2, clazz);
             }else {
