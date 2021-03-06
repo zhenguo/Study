@@ -1,9 +1,7 @@
 package com.quxiangtech.customViews;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -13,8 +11,6 @@ import android.view.View;
 import android.view.ViewConfiguration;
 
 import androidx.annotation.Nullable;
-
-import com.quxiangtech.myapplication.R;
 
 public class CircleDragView extends View {
     private static final String TAG = "TestDrag";
@@ -79,6 +75,11 @@ public class CircleDragView extends View {
         } else {
             getParent().requestDisallowInterceptTouchEvent(false);
         }
+    }
+
+    @Override
+    public boolean performClick() {
+        return super.performClick();
     }
 
     @Override
