@@ -36,6 +36,31 @@ android {
     lintOptions {
         abortOnError false
     }
+
+//    flavorDimensions "arch"
+//    productFlavors {
+//        arm32 {
+//            dimension "arch"
+//            ndk {
+//                abiFilter "armeabi-v7a"
+//            }
+//        }
+//        arm64 {
+//            dimension "arch"
+//            ndk {
+//                abiFilter "armeabi-v8a"
+//            }
+//        }
+//    }
+
+//    split {
+//        abi {
+//            enable true
+//            reset()
+//            include 'armeabi-v7a','armeabi-v8a'
+//            universalApk true
+//        }
+//    }
 }
 
 // ATTENTION!!! Must be PLACED AFTER "android{}" to read the applicationId

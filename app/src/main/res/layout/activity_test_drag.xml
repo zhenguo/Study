@@ -4,80 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2E92BE"
     tools:context="com.quxiangtech.customViews.TestDragActivity">
 
-    <com.quxiangtech.customViews.FlowLayout
+    <!--    <com.quxiangtech.customViews.FlowLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent">-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:background="@android:color/holo_blue_dark"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:text="自定义Layout"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="16sp" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:background="@android:color/holo_blue_dark"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:text="自定义Layout"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="16sp" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:background="@android:color/holo_blue_dark"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:text="自定义Layout"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="16sp" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:background="@android:color/holo_blue_dark"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:text="自定义Layout"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="16sp" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:background="@android:color/holo_blue_dark"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:text="自定义Layout"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="16sp" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:background="@android:color/holo_blue_dark"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:text="自定义Layout"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="16sp" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:background="@android:color/holo_blue_dark"-->
+    <!--            android:padding="10dp"-->
+    <!--            android:text="自定义Layout"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="16sp" />-->
+
+    <!--    </com.quxiangtech.customViews.FlowLayout>-->
+
+
+    <com.quxiangtech.customViews.BezierCurveView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="238dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:padding="10dp"
-            android:text="自定义Layout"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:padding="10dp"
-            android:text="自定义Layout"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:padding="10dp"
-            android:text="自定义Layout"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:padding="10dp"
-            android:text="自定义Layout"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:padding="10dp"
-            android:text="自定义Layout"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:padding="10dp"
-            android:text="自定义Layout"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:padding="10dp"
-            android:text="自定义Layout"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-    </com.quxiangtech.customViews.FlowLayout>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.quxiangtech.customViews.CircleDragView
         android:layout_width="100dp"

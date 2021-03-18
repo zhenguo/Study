@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         HotFixTest hotFixTest = new HotFixTest();
-        hotFixTest.throwException();
+//        hotFixTest.throwException();
 
         ContextTest contextTest = new ContextTest();
         contextTest.inflateViewUsingActivityContext(this);

@@ -1,0 +1,343 @@
+package com.quxiangtech.customViews;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
+
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+
+import com.quxiangtech.myapplication.R;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
+
+public class BezierCurveView extends CardView {
+    private static final String TAG = "BezierCurveView";
+    private Paint mPaint;
+    private Path mPath;
+    private int eventX, eventY;
+    private int centerX, centerY;
+    private float startX, startY;
+    private int endX, endY;
+    private final boolean mDividerTouched = false;
+    private RectF mInfoRect = new RectF();
+    private List<RectF> mDividerCache = new ArrayList<>();
+    private boolean mDividerHint = false;
+    List<Float> maxTemp = new ArrayList<>();
+    private RectF mTextBound = new RectF();
+
+    public BezierCurveView(Context context) {
+        super(context);
+
+        initInternal();
+    }
+
+    public BezierCurveView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+
+        initInternal();
+    }
+
+    public BezierCurveView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+
+        initInternal();
+    }
+
+    private void initInternal() {
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPath = new Path();
+
+        // 模拟最高温
+        Random random = new Random(100);
+        for (int i = 0; i < 40; i++) {
+            maxTemp.add((float) random.nextInt(300));
+        }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int width = 0, height = 0;
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+
+        final int pleft = getPaddingLeft();
+        final int pright = getPaddingRight();
+        final int ptop = getPaddingTop();
+        final int pbottom = getPaddingBottom();
+
+        if (widthMode == MeasureSpec.EXACTLY) {
+            width = MeasureSpec.getSize(widthMeasureSpec);
+        } else if (widthMode == MeasureSpec.AT_MOST) {
+            width = MeasureSpec.getSize(widthMeasureSpec);
+        } else if (widthMode == MeasureSpec.UNSPECIFIED) {
+
+        }
+
+        if (heightMode == MeasureSpec.EXACTLY) {
+            height = MeasureSpec.getSize(heightMeasureSpec);
+        } else if (heightMode == MeasureSpec.AT_MOST) {
+            width = MeasureSpec.getSize(widthMeasureSpec);
+        } else if (heightMode == MeasureSpec.UNSPECIFIED) {
+
+        }
+
+        Log.i(TAG, "onMeasure: " + width + " " + height);
+        setMeasuredDimension(width, height);
+    }
+
+    @Override
+    public boolean performClick() {
+        return super.performClick();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        centerX = w / 2;
+        centerY = h / 2;
+        startX = centerX - 250;
+        startY = centerY;
+        endX = centerX + 250;
+        endY = centerY;
+        eventX = centerX;
+        eventY = centerY - 250;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.d(TAG, "onTouchEvent: ");
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+//                eventX = (int) event.getX();
+//                eventY = (int) event.getY();
+                startX = event.getX();
+                startY = event.getY();
+                for (int i = 0; i < mDividerCache.size(); i++) {
+                    if (mDividerCache.get(i).contains(startX, startY)) {
+                        mDividerHint = true;
+                        invalidate();
+                        break;
+                    }
+                }
+                break;
+        }
+
+        return true; // force disallow parent intercept touch event
+    }
+
+    private void drawTitle(Canvas canvas) {
+        String text = "4天降温/2天升温,20天有雨";
+        mPaint.reset();
+        mPaint.setDither(true);
+        mPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.weather_title_size));
+        mPaint.setColor(Color.parseColor("#333333"));
+        mPaint.setTextAlign(Paint.Align.CENTER);
+        Rect rect = new Rect(0, 0, getRight(), getResources().getDimensionPixelSize(R.dimen.dp_58));
+
+        Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
+        float dy = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
+        canvas.drawText(text, rect.centerX(), rect.centerY() + dy, mPaint);
+    }
+
+    private void drawDayDivider(Canvas canvas) {
+        // 第一天和最后一天设置成透明色
+        mPaint.reset();
+        mPaint.setDither(true);
+        float startX = getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_36);
+        float startY = getTop() + getResources().getDimensionPixelSize(R.dimen.dp_53);
+        float dividerWidth = getResources().getDimensionPixelSize(R.dimen.dp_1);
+        float dividerHeight = getResources().getDimensionPixelSize(R.dimen.dp_130);
+        float dividerGap = getResources().getDimensionPixelSize(R.dimen.dp_7);
+
+        for (int i = 0; i < 40; i++) {
+            if (i == 0 || i == 39) {
+                mPaint.setColor(getResources().getColor(android.R.color.transparent));
+            } else {
+                mPaint.setColor(Color.parseColor("#D8D8D8"));
+            }
+
+            mDividerCache.get(i).set(startX, startY, startX + dividerWidth, startY + dividerHeight);
+            canvas.drawRect(startX, startY, startX + dividerWidth, startY + dividerHeight, mPaint);
+            startX += dividerWidth;
+            startX += dividerGap;
+        }
+    }
+
+    private void drawHitDivider(Canvas canvas) {
+        // 第一天和最后一天设置成透明色
+        mPaint.reset();
+        mPaint.setDither(true);
+        float startX = getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_36);
+        float startY = getTop() + getResources().getDimensionPixelSize(R.dimen.dp_53);
+        float dividerWidth = getResources().getDimensionPixelSize(R.dimen.dp_1);
+        float dividerHeight = getResources().getDimensionPixelSize(R.dimen.dp_130);
+        float dividerGap = getResources().getDimensionPixelSize(R.dimen.dp_7);
+
+        for (int i = 0; i < 40; i++) {
+            if (mDividerCache.get(i).contains(this.startX, this.startY)) {
+                this.startX = -1;
+                this.startY = -1;
+                mPaint.setColor(Color.parseColor("#3E9CC7"));
+                mPaint.setStyle(Paint.Style.FILL);
+                mInfoRect.set(startX - getResources().getDimensionPixelSize(R.dimen.dp_129) / 2.0f, startY,
+                        startX + getResources().getDimensionPixelSize(R.dimen.dp_129) / 2.0f,
+                        startY + getResources().getDimensionPixelSize(R.dimen.dp_22));
+
+                canvas.drawRect(startX, startY, startX + dividerWidth, startY + dividerHeight, mPaint);
+                canvas.drawRoundRect(mInfoRect, getResources().getDimensionPixelSize(R.dimen.dp_11),
+                        getResources().getDimensionPixelSize(R.dimen.dp_11), mPaint);
+
+                String text = "8月20日 晴  最高24°";
+                mPaint.setColor(getResources().getColor(android.R.color.white));
+                mPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.weather_title_size_12));
+                mPaint.setTextAlign(Paint.Align.CENTER);
+
+                Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
+                float dy = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
+                canvas.drawText(text, mInfoRect.centerX(),
+                        mInfoRect.centerY() + dy, mPaint);
+                break;
+            }
+
+            startX += dividerWidth;
+            startX += dividerGap;
+        }
+    }
+
+    private void drawCurve(Canvas canvas) {
+        mPaint.reset();
+        mPaint.setDither(true);
+        mPaint.setColor(Color.parseColor("#2E92BE"));
+        mPaint.setStrokeWidth(getResources().getDimensionPixelSize(R.dimen.dp_4));
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+
+        for (int i = 0; i < mDividerCache.size(); i++) {
+            if (i + 1 >= mDividerCache.size()) {
+                break;
+            }
+
+            float startX = mDividerCache.get(i).left;
+            float startY = mDividerCache.get(i).bottom - maxTemp.get(i);
+            float stopX = mDividerCache.get(i + 1).left;
+            float stopY = mDividerCache.get(i + 1).bottom - maxTemp.get(i + 1);
+            mPath.reset();
+            mPath.moveTo(startX, startY);
+            mPath.quadTo(stopX, stopY, stopX, stopY);
+            canvas.drawPath(mPath, mPaint);
+        }
+    }
+
+    public void drawTemp(Canvas canvas) {
+        mPaint.reset();
+        mPaint.setDither(true);
+        mPaint.setColor(Color.parseColor("#D8D8D8"));
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.weather_title_size_12));
+        mPaint.setTextAlign(Paint.Align.CENTER);
+
+        // 找到最高温
+        float max = Collections.max(maxTemp, new Comparator<Float>() {
+            @Override
+            public int compare(Float o1, Float o2) {
+                return (int) (o1 - o2);
+            }
+        });
+        Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
+        float dy = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
+        mTextBound.set(getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_10),
+                mDividerCache.get(0).bottom - max - (fontMetrics.bottom - fontMetrics.top) / 2,
+                getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_10) + mPaint.measureText(String.valueOf(max)),
+                mDividerCache.get(0).bottom - max + (fontMetrics.bottom - fontMetrics.top) / 2);
+        canvas.drawRect(mTextBound, mPaint);
+        canvas.drawText(String.valueOf(max), mTextBound.centerX(), mTextBound.centerY() + dy, mPaint);
+        canvas.drawLine(mDividerCache.get(1).left, mDividerCache.get(0).bottom - max, mDividerCache.get(mDividerCache.size() - 2).right,
+                mDividerCache.get(0).bottom - max, mPaint);
+
+        // 找到最低温
+        float min = Collections.min(maxTemp, new Comparator<Float>() {
+            @Override
+            public int compare(Float o1, Float o2) {
+                return (int) (o1 - o2);
+            }
+        });
+        mTextBound.set(getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_10),
+                mDividerCache.get(0).bottom - min - (fontMetrics.bottom - fontMetrics.top) / 2,
+                getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_10) + mPaint.measureText(String.valueOf(max)),
+                mDividerCache.get(0).bottom - min + (fontMetrics.bottom - fontMetrics.top) / 2);
+        canvas.drawRect(mTextBound, mPaint);
+        canvas.drawText(String.valueOf(min), mTextBound.centerX(), mTextBound.centerY() + dy, mPaint);
+        canvas.drawLine(mDividerCache.get(1).left, mDividerCache.get(0).bottom - min, mDividerCache.get(mDividerCache.size() - 2).right,
+                mDividerCache.get(0).bottom - min, mPaint);
+    }
+
+    public void drawDate(Canvas canvas) {
+
+    }
+
+    public void drawRainValue(Canvas canvas) {
+        mPaint.reset();
+        mPaint.setDither(true);
+        mPaint.setColor(Color.parseColor("#D8D8D8"));
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.weather_title_size_12));
+        mPaint.setTextAlign(Paint.Align.CENTER);
+
+        int startX = getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_10);
+        int startY = getTop() + getResources().getDimensionPixelSize(R.dimen.dp_185);
+
+        Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
+        float dy = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
+        float textHeight = fontMetrics.bottom - fontMetrics.top;
+
+        mTextBound.set(startX, startY - textHeight / 2, startX + mPaint.measureText("降水"), startY + textHeight / 2);
+        canvas.drawRect(mTextBound, mPaint);
+        canvas.drawText("降水", mTextBound.centerX(), mTextBound.centerY() + dy, mPaint);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        drawTitle(canvas);
+        drawDayDivider(canvas);
+        drawHitDivider(canvas);
+        drawCurve(canvas);
+        drawTemp(canvas);
+        drawRainValue(canvas);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        for (int i = 0; i < 40; i++) {
+            mDividerCache.add(new RectF());
+        }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        // force GC
+        mDividerCache.clear();
+        mDividerCache = null;
+    }
+}
