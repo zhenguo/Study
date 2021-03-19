@@ -110,5 +110,17 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.5.1'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
+    implementation "androidx.vectordrawable:vectordrawable:1.1.0"
+
+    /* To be able to animate properties of a VectorDrawable, add the following.  Useful for
+     * illustration purposes or state changes in response to user events
+     */
+    implementation "androidx.vectordrawable:vectordrawable-animated:1.1.0"
+
+    /* To use a seekable alternative for `androidx.vectordrawable:vectordrawable-animated` add the
+     * following
+     */
+    implementation "androidx.vectordrawable:vectordrawable-seekable:1.0.0-alpha02"
+
 //    implementation 'com.qihoo360.replugin:replugin-host-lib:2.2.4'
 }
