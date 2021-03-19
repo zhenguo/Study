@@ -10,9 +10,12 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.ViewConfiguration;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+
 
 import com.quxiangtech.myapplication.R;
 
@@ -23,10 +26,10 @@ import java.util.List;
 import java.util.Random;
 
 public class BezierCurveView extends CardView {
-    private static final String TAG = "BezierCurveView";
+    private static final String TAG = "Weather40View";
     private Paint mPaint;
     private Path mPath;
-    private float startX, startY;
+    private float initX, startX, startY;
     private final RectF mInfoRect = new RectF();
     private List<RectF> mDividerCache = new ArrayList<>();
     List<Float> maxTemp = new ArrayList<>();
@@ -52,6 +55,7 @@ public class BezierCurveView extends CardView {
     }
 
     private void initInternal() {
+        setCardBackgroundColor(getResources().getColor(android.R.color.white));
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPath = new Path();
 
@@ -115,15 +119,22 @@ public class BezierCurveView extends CardView {
         Log.d(TAG, "onTouchEvent: ");
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                initX = event.getX();
             case MotionEvent.ACTION_MOVE:
                 startX = event.getX();
                 startY = event.getY();
-                for (int i = 0; i < mDividerCache.size(); i++) {
-                    if (mDividerCache.get(i).contains(startX, startY)) {
-                        invalidate();
-                        break;
+
+                if (Math.abs(event.getX() - initX) > ViewConfiguration.get(getContext()).getScaledTouchSlop()) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    for (int i = 0; i < mDividerCache.size(); i++) {
+                        if (mDividerCache.get(i).contains(startX, startY)) {
+                            Log.i(TAG, "onTouchEvent: invalidate");
+                            invalidate();
+                            break;
+                        }
                     }
                 }
+
                 break;
         }
 
@@ -140,7 +151,7 @@ public class BezierCurveView extends CardView {
 
         Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
         float dy = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
-        mTextBound.set(0, 0, getRight(), (int) (fontMetrics.bottom - fontMetrics.top));
+        mTextBound.set(0, 0, getRight() - getLeft(), (int) (fontMetrics.bottom - fontMetrics.top));
         canvas.drawText(text, mTextBound.centerX(), mTextBound.centerY() + dy + getResources().getDimensionPixelSize(R.dimen.dp_15), mPaint);
     }
 
@@ -151,8 +162,8 @@ public class BezierCurveView extends CardView {
         mPaint.setAlpha(204);
         mPaint.setStyle(Paint.Style.FILL);
 
-        float startX = getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_36);
-        float startY = getTop() + getResources().getDimensionPixelSize(R.dimen.dp_53);
+        float startX = getResources().getDimensionPixelSize(R.dimen.dp_36);
+        float startY = getResources().getDimensionPixelSize(R.dimen.dp_53);
         float dividerWidth = getResources().getDimensionPixelSize(R.dimen.dp_1);
         float dividerHeight = getResources().getDimensionPixelSize(R.dimen.dp_130);
         float dividerGap = getResources().getDimensionPixelSize(R.dimen.dp_7);
@@ -178,8 +189,8 @@ public class BezierCurveView extends CardView {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(Color.parseColor("#3E9CC7"));
 
-        float startX = getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_36);
-        float startY = getTop() + getResources().getDimensionPixelSize(R.dimen.dp_53);
+        float startX = getResources().getDimensionPixelSize(R.dimen.dp_36);
+        float startY = getResources().getDimensionPixelSize(R.dimen.dp_53);
         float dividerWidth = getResources().getDimensionPixelSize(R.dimen.dp_1);
         float dividerHeight = getResources().getDimensionPixelSize(R.dimen.dp_130);
         float dividerGap = getResources().getDimensionPixelSize(R.dimen.dp_7);
@@ -251,6 +262,7 @@ public class BezierCurveView extends CardView {
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setAlpha(204);
         mPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.weather_title_size_12));
+        mPaint.setTextAlign(Paint.Align.LEFT);
 
         // 找到最高温
         float max = Collections.max(maxTemp, new Comparator<Float>() {
@@ -261,9 +273,9 @@ public class BezierCurveView extends CardView {
         });
         Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
         float dy = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
-        mTextBound.set(getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_10),
+        mTextBound.set(getResources().getDimensionPixelSize(R.dimen.dp_10),
                 mDividerCache.get(0).bottom - max - (fontMetrics.bottom - fontMetrics.top) / 2,
-                getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_10) + mPaint.measureText(String.valueOf(max)),
+                getResources().getDimensionPixelSize(R.dimen.dp_10) + mPaint.measureText(String.valueOf(max)),
                 mDividerCache.get(0).bottom - max + (fontMetrics.bottom - fontMetrics.top) / 2);
 //        canvas.drawRect(mTextBound, mPaint);
         canvas.drawText(String.valueOf(max), mTextBound.left, mTextBound.centerY() + dy, mPaint);
@@ -277,9 +289,9 @@ public class BezierCurveView extends CardView {
                 return (int) (o1 - o2);
             }
         });
-        mTextBound.set(getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_10),
+        mTextBound.set(getResources().getDimensionPixelSize(R.dimen.dp_10),
                 mDividerCache.get(0).bottom - min - (fontMetrics.bottom - fontMetrics.top) / 2,
-                getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_10) + mPaint.measureText(String.valueOf(max)),
+                getResources().getDimensionPixelSize(R.dimen.dp_10) + mPaint.measureText(String.valueOf(max)),
                 mDividerCache.get(0).bottom - min + (fontMetrics.bottom - fontMetrics.top) / 2);
 //        canvas.drawRect(mTextBound, mPaint);
         canvas.drawText(String.valueOf(min), mTextBound.left, mTextBound.centerY() + dy, mPaint);
@@ -316,23 +328,29 @@ public class BezierCurveView extends CardView {
         mPaint.setColor(Color.parseColor("#D8D8D8"));
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.weather_title_size_12));
+        mPaint.setTextAlign(Paint.Align.LEFT);
 
-        int startX = getLeft() + getResources().getDimensionPixelSize(R.dimen.dp_10);
-        int startY = getTop() + getResources().getDimensionPixelSize(R.dimen.dp_185);
+        int startX = getResources().getDimensionPixelSize(R.dimen.dp_10);
+        int startY = getResources().getDimensionPixelSize(R.dimen.dp_185);
 
         Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
         float dy = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
         float textHeight = fontMetrics.bottom - fontMetrics.top;
+        startY += (fontMetrics.bottom - fontMetrics.top) / 2;
 
-        mTextBound.set(startX, startY - textHeight / 2, startX + mPaint.measureText("降水"), startY + textHeight / 2);
+        mTextBound.set(startX, startY, startX + mPaint.measureText("降水"), startY + textHeight / 2);
 //        canvas.drawRect(mTextBound, mPaint);
         canvas.drawText("降水", mTextBound.left, mTextBound.centerY() + dy, mPaint);
         Drawable drawable;
         for (int i = 1; i < mDividerCache.size() - 1; i++) {
             if (i % 2 == 0) {
-                drawable = getContext().getDrawable(R.drawable.ic___rain);
+                drawable = ContextCompat.getDrawable(getContext(), R.drawable.ic___rain);
             } else {
-                drawable = getContext().getDrawable(R.drawable.ic___norain);
+                drawable = ContextCompat.getDrawable(getContext(), R.drawable.ic___norain);
+            }
+
+            if (drawable == null) {
+                break;
             }
 
             int left = (int) (mDividerCache.get(i).left - drawable.getIntrinsicWidth() / 2);
@@ -346,7 +364,6 @@ public class BezierCurveView extends CardView {
             int right = (int) (mDividerCache.get(i).left + drawable.getIntrinsicWidth() / 2);
             int bottom = top + drawable.getIntrinsicHeight();
             drawable.setBounds(left, top, right, bottom);
-            Log.i(TAG, "drawRainValue: " + drawable.getBounds().width() + " " + drawable.getBounds().height());
             drawable.draw(canvas);
         }
     }
