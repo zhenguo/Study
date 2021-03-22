@@ -3,6 +3,8 @@ package com.quxiangtech.customViews;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 
 import com.google.gson.Gson;
 import com.quxiangtech.myapplication.R;
@@ -1601,8 +1603,24 @@ public class TestDragActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_drag);
         mWeather40View = findViewById(R.id.weather40View);
-        Gson gson = new Gson();
-        FortyDailyResponse response = gson.fromJson(json, FortyDailyResponse.class);
-        mWeather40View.setData(response.getData());
+
+        Handler mainHandler = new Handler();
+        HandlerThread handlerThread = new HandlerThread("ser");
+        handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Gson gson = new Gson();
+                FortyDailyResponse response = gson.fromJson(json, FortyDailyResponse.class);
+                handlerThread.quit();
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mWeather40View.setData(response.getData());
+                    }
+                });
+            }
+        });
     }
 }
