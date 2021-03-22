@@ -80,7 +80,8 @@
     <!--    </com.quxiangtech.customViews.FlowLayout>-->
 
 
-    <com.quxiangtech.customViews.BezierCurveView
+    <com.quxiangtech.customViews.Weather40View
+        android:id="@+id/weather40View"
         android:layout_width="match_parent"
         android:layout_height="238dp"
         android:layout_marginLeft="15dp"

@@ -121,6 +121,7 @@ dependencies {
      * following
      */
     implementation "androidx.vectordrawable:vectordrawable-seekable:1.0.0-alpha02"
+    implementation 'com.google.code.gson:gson:2.8.6'
 
 //    implementation 'com.qihoo360.replugin:replugin-host-lib:2.2.4'
 }

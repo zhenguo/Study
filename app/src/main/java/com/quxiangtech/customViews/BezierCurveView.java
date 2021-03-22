@@ -130,7 +130,7 @@ public class BezierCurveView extends CardView {
                         if (mDividerCache.get(i).contains(startX, startY)) {
                             Log.i(TAG, "onTouchEvent: invalidate");
                             invalidate();
-                            break;
+                            return true;
                         }
                     }
                 }
