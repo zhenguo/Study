@@ -37,9 +37,11 @@ public class ZRouter {
     }
 
     public static boolean routersRegistered = false;
+
     public void registerRouter() {
 
     }
+
     public void init(Context context) {
         Log.d(TAG, "规范名称: " + ZRouter.class.getCanonicalName());
         if (!routersRegistered) {
@@ -85,7 +87,7 @@ public class ZRouter {
         String target = mRoutes.get(path);
 
         if (target != null) {
-            Class targetClass = Class.forName(target);
+            Class<?> targetClass = Class.forName(target);
             Intent intent = new Intent(src, targetClass);
             src.startActivity(intent);
         } else {
