@@ -155,32 +155,8 @@ public class Weather40View extends CardView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int width = 0, height = 0;
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-
-        final int pleft = getPaddingLeft();
-        final int pright = getPaddingRight();
-        final int ptop = getPaddingTop();
-        final int pbottom = getPaddingBottom();
-
-        if (widthMode == MeasureSpec.EXACTLY) {
-            width = MeasureSpec.getSize(widthMeasureSpec);
-        } else if (widthMode == MeasureSpec.AT_MOST) {
-            width = MeasureSpec.getSize(widthMeasureSpec);
-        } else if (widthMode == MeasureSpec.UNSPECIFIED) {
-
-        }
-
-        if (heightMode == MeasureSpec.EXACTLY) {
-            height = MeasureSpec.getSize(heightMeasureSpec);
-        } else if (heightMode == MeasureSpec.AT_MOST) {
-            width = MeasureSpec.getSize(widthMeasureSpec);
-        } else if (heightMode == MeasureSpec.UNSPECIFIED) {
-
-        }
-
-        Log.i(TAG, "onMeasure: " + width + " " + height);
+        int width = getDefaultSize(0, widthMeasureSpec);
+        int height = getDefaultSize(0, heightMeasureSpec);
         setMeasuredDimension(width, height);
     }
 
@@ -334,7 +310,6 @@ public class Weather40View extends CardView {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(getResources().getDimensionPixelSize(R.dimen.dp_2));
         canvas.drawCircle(startX, mDividerCache.get(mHitIndex).bottom - mMaxTempList.get(mHitIndex) * mTempFactor, getResources().getDimensionPixelSize(R.dimen.dp_2), mPaint);
-
     }
 
     private void drawCurve(Canvas canvas) {
