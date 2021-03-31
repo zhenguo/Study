@@ -182,6 +182,11 @@ public class Weather40View extends CardView {
                 Color.parseColor("#FF2E92BE"), Color.parseColor("#FF6FBDE5"), Shader.TileMode.CLAMP);
     }
 
+    public void setHintIndex(int hintIndex) {
+        mHitIndex = hintIndex;
+        invalidate();
+    }
+
     private final GestureDetector mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
@@ -265,6 +270,7 @@ public class Weather40View extends CardView {
     }
 
     private void drawHitDivider(Canvas canvas) {
+        Log.i(TAG, "drawHitDivider: ");
         if (mHitIndex == -1) {
             return;
         }

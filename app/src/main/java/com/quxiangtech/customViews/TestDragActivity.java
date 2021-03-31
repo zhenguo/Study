@@ -1,10 +1,14 @@
 package com.quxiangtech.customViews;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.animation.Animator;
+import androidx.core.animation.ObjectAnimator;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.quxiangtech.myapplication.R;
@@ -15,7 +19,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 public class TestDragActivity extends AppCompatActivity {
-
+    private static final String TAG = "TestDragActivity";
     private final static String json = "{\n" +
             "    \"code\": 200,\n" +
             "    \"msg\": \"ok\",\n" +
@@ -1604,6 +1608,7 @@ public class TestDragActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test_drag);
         mWeather40View = findViewById(R.id.weather40View);
 
+
         Handler mainHandler = new Handler();
         HandlerThread handlerThread = new HandlerThread("ser");
         handlerThread.start();
@@ -1622,5 +1627,39 @@ public class TestDragActivity extends AppCompatActivity {
                 });
             }
         });
+        mainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.i(TAG, "postDelayed: ");
+                startWeatherAnim();
+            }
+        }, 2000);
+    }
+
+    public void startWeatherAnim() {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofInt(mWeather40View, "hintIndex", 0, 39).setDuration(20000);
+        objectAnimator.setRepeatCount(2);
+        objectAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(@NonNull Animator animation) {
+                Log.i(TAG, "onAnimationStart: ");
+            }
+
+            @Override
+            public void onAnimationEnd(@NonNull Animator animation) {
+                Log.i(TAG, "onAnimationEnd: ");
+            }
+
+            @Override
+            public void onAnimationCancel(@NonNull Animator animation) {
+                Log.i(TAG, "onAnimationCancel: ");
+            }
+
+            @Override
+            public void onAnimationRepeat(@NonNull Animator animation) {
+                Log.i(TAG, "onAnimationRepeat: ");
+            }
+        });
+        objectAnimator.start();
     }
 }

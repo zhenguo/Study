@@ -125,5 +125,9 @@ dependencies {
 
     implementation "androidx.startup:startup-runtime:1.0.0"
 
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+
 //    implementation 'com.qihoo360.replugin:replugin-host-lib:2.2.4'
 }
