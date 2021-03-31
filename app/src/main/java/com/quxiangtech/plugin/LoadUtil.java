@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Environment;
 import android.widget.Toast;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -52,6 +53,10 @@ public class LoadUtil {
              */
             String apkPath = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/ZPlugin-debug.apk";
             System.out.println("apkPath: " + apkPath);
+            if (!new File(apkPath).exists()) {
+                Toast.makeText(context, "插件apk不存在", Toast.LENGTH_LONG).show();
+                return;
+            }
             ClassLoader pluginClassLoader = new DexClassLoader(apkPath,
                     context.getCacheDir().getAbsolutePath(), null, pathClassLoader);
             Object pluginPathList = pathListField.get(pluginClassLoader);
