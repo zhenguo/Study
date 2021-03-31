@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
@@ -62,6 +63,7 @@ public class Weather40View extends CardView {
     private int mHitIndex = -1;
     private float mInfoWidth, mInfoHeight;
     private float mDividierHeight;
+    private float mPercent = 0.0f;
 
     public Weather40View(Context context) {
         super(context);
@@ -79,6 +81,15 @@ public class Weather40View extends CardView {
         super(context, attrs, defStyleAttr);
 
         initInternal();
+    }
+
+    public void setPercent(float percent) {
+        mPercent = percent;
+        invalidate();
+    }
+
+    public float getPercent() {
+        return mPercent;
     }
 
     public void setData(List<FortyDailyResponse.DataBean> entity) {
@@ -404,8 +415,38 @@ public class Weather40View extends CardView {
             textWidthTotal += mPaint.measureText(mDate);
         }
         float textGap = (mDividerCache.get(mDividerCache.size() - 2).right - mDividerCache.get(1).left - textWidthTotal) / (mDates.length - 1);
+
         for (String mDate : mDates) {
             canvas.drawText(mDate, startX, startY + dy, mPaint);
+            startX += (mPaint.measureText(mDate) + textGap);
+        }
+    }
+
+    public void drawDate2(Canvas canvas) {
+        mPaint.reset();
+        mPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setColor(Color.parseColor("#2E92BE"));
+        mPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.weather_title_size_12));
+        mPaint.setTextAlign(Paint.Align.LEFT);
+
+        float startX = mDividerCache.get(1).left;
+        float startY = mDividerCache.get(1).bottom + getResources().getDimensionPixelSize(R.dimen.dp_28);
+        Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
+        float dy = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
+
+        float textWidthTotal = 0;
+        for (String mDate : mDates) {
+            textWidthTotal += mPaint.measureText(mDate);
+        }
+        float textGap = (mDividerCache.get(mDividerCache.size() - 2).right - mDividerCache.get(1).left - textWidthTotal) / (mDates.length - 1);
+
+        for (String mDate : mDates) {
+            canvas.save();
+            mTextBound.set(startX, startY + dy, startX + (float) (mPaint.measureText(mDates[0]) * mPercent), fontMetrics.bottom - fontMetrics.top);
+            canvas.clipRect(mTextBound);
+//            canvas.drawRect(rect, mPaint);
+            canvas.drawText(mDate, startX, startY + dy, mPaint);
+            canvas.restore();
             startX += (mPaint.measureText(mDate) + textGap);
         }
     }
@@ -469,6 +510,7 @@ public class Weather40View extends CardView {
         drawTemp(canvas);
         drawRainValue(canvas);
         drawDate(canvas);
+        drawDate2(canvas);
     }
 
     @Override

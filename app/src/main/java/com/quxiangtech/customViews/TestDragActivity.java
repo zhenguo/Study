@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.animation.Animator;
 import androidx.core.animation.ObjectAnimator;
+import androidx.core.animation.ValueAnimator;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -1632,13 +1633,20 @@ public class TestDragActivity extends AppCompatActivity {
             public void run() {
                 Log.i(TAG, "postDelayed: ");
                 startWeatherAnim();
+                startDateAnim();
             }
         }, 2000);
     }
 
+    public void startDateAnim() {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mWeather40View, "percent", 0, 1).setDuration(2000);
+        objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        objectAnimator.start();
+    }
+
     public void startWeatherAnim() {
         ObjectAnimator objectAnimator = ObjectAnimator.ofInt(mWeather40View, "hintIndex", 0, 39).setDuration(20000);
-        objectAnimator.setRepeatCount(2);
         objectAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(@NonNull Animator animation) {
