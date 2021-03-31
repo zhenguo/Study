@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Environment;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -68,6 +69,7 @@ public class LoadUtil {
 
             dexElementsField.set(hostPathList, newDexElements);
             System.out.println("load plugin successful: " + newDexElements.length);
+            Toast.makeText(context, "加载插件成功", Toast.LENGTH_LONG).show();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {

@@ -1,6 +1,8 @@
 package com.quxiangtech.hotfix;
 
 import android.app.Application;
+import android.content.Context;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -34,7 +36,7 @@ public class HotFix {
     private HotFix() {
     }
 
-    public void init(@NonNull Application app, @NonNull String patch) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException {
+    public void init(@NonNull Context app, @NonNull String patch) throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException {
         // 通过path获取到Element[]
         /**
          * 我们自己写的类通过PathClassLoader加载，parent指向BaseClassLoader(防止串改系统类)
@@ -80,5 +82,6 @@ public class HotFix {
         // 将新数组赋值给dexElements字段
         dexElementsField.set(pathListObj, result);
         System.out.println("HotFix init successful");
+        Toast.makeText(app, "HotFix init successful", Toast.LENGTH_LONG).show();
     }
 }

@@ -187,7 +187,6 @@ public class Weather40View extends CardView {
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             getParent().requestDisallowInterceptTouchEvent(true);
 
-
             mTextBound.set(e2.getX(), e2.getY(), 0, 0);
             int index = Arrays.binarySearch(mDividerCache.toArray(mArrayBuff), mTextBound, new Comparator<RectF>() {
                 @Override

@@ -37,19 +37,19 @@ public class TestApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
 
-        try {
-            HotFix.getInstance().init(this, base.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/patch.dex");
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            HotFix.getInstance().init(this, base.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/patch.dex");
+//        } catch (NoSuchFieldException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
 //        if (BuildConfig.DEBUG) {
 //            File file = base.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
 //            if (file != null) {

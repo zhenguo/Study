@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.quxiangtech.myapplication"
     android:sharedUserId="">
     <!-- 前 4 个权限是读写权限 -->
@@ -68,6 +69,20 @@
             android:name="com.quxiangtech.binder.ServiceManagerService"
             android:process=":service_manager" />
         <service android:name="com.quxiangtech.binder.localBinder.LocalService" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+
+            <meta-data
+                android:name="com.quxiangtech.startup.HotFixInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.quxiangtech.startup.PluginInitializer"
+                android:value="androidx.startup" />
+        </provider>
     </application>
 
 </manifest>
