@@ -1,4 +1,4 @@
-package com.anderson.dashboardview.util;
+package com.quxiangtech.customViews.dashboardview.util;
 
 import android.content.Context;
 import android.util.TypedValue;

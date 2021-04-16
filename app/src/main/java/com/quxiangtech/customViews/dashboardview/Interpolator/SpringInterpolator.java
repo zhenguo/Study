@@ -1,4 +1,4 @@
-package com.anderson.dashboardview.Interpolator;
+package com.quxiangtech.customViews.dashboardview.Interpolator;
 
 
 import android.view.animation.Interpolator;

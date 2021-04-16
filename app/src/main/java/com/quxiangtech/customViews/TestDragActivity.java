@@ -1,23 +1,24 @@
 package com.quxiangtech.customViews;
 
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.animation.Animator;
 import androidx.core.animation.ObjectAnimator;
 import androidx.core.animation.ValueAnimator;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.util.Log;
-
 import com.google.gson.Gson;
+import com.quxiangtech.customViews.dashboardview.view.CarLiveDataBean;
+import com.quxiangtech.customViews.dashboardview.view.SeresDashBordView;
+import com.quxiangtech.customViews.dashboardview.view.VerifyCodeDialog;
+import com.quxiangtech.customViews.dashboardview.view.VerifyCodeView;
 import com.quxiangtech.myapplication.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
 
 public class TestDragActivity extends AppCompatActivity {
     private static final String TAG = "TestDragActivity";
@@ -1602,14 +1603,40 @@ public class TestDragActivity extends AppCompatActivity {
             "    ]\n" +
             "}";
     private Weather40View mWeather40View;
+    private SeresDashBordView mDashboardView;
+
+    private static final String carJson = "{\"acDriverC\":\"21.5\",\"acPassengerC\":\"45.0\",\"airConditionStatus\":\"2\",\"chargeConnect\":\"2\",\"chargeEndTime\":\"0:00\",\"chargeStartTime\":\"12:00\",\"fuelComsum\":\"0\",\"fuelLevel\":\"60.0\",\"highBeam\":\"1\",\"lfDoorStatus\":\"1\",\"lockStatus\":\"1\",\"lowBeam\":\"1\",\"lrDoorStatus\":\"1\",\"lrWindowStatus\":\"1\",\"masterHeat\":\"1\",\"masterLevel\":\"0\",\"oilPercent\":\"\",\"powerComsum\":\"-200\",\"rechargeType\":\"1\",\"remainMileage\":\"458.0\",\"remainPower\":\"82\",\"rfDoorStatus\":\"1\",\"rfWindowStatus\":\"2\",\"roofWindowStatus\":\"0\",\"rrDoorStatus\":\"1\",\"rrWindowStatus\":\"2\",\"slaveHeat\":\"1\",\"slaveLevel\":\"0\",\"socMaxValue\":\"0\",\"thisAvgFuelConsum\":\"0\",\"thisAvgPowCurrent\":\"643\",\"totalMileage\":\"17049.0\",\"trunkDoorStatus\":\"1\",\"vehicleNoUpStatus\":\"2\",\"chargeStstus\":\"3\"}";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_drag);
         mWeather40View = findViewById(R.id.weather40View);
+        mDashboardView = findViewById(R.id.dashbord);
+        mDashboardView.updateView(new Gson().fromJson(carJson, CarLiveDataBean.class), true);
+        mDashboardView.setActionListener(new SeresDashBordView.ActionListener() {
+            @Override
+            public void onStartExamClicked(View view) {
+                VerifyCodeDialog dialog = new VerifyCodeDialog();
+                dialog.setOnInputCompleteListener(new VerifyCodeView.OnInputCompleteListener() {
+                    @Override
+                    public void onInput(String s) {
+                        Toast.makeText(view.getContext(), s, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                dialog.show(getSupportFragmentManager());
+            }
 
+            @Override
+            public void onStopExamClicked(View view) {
 
+            }
+
+            @Override
+            public void onStopChargeClicked(View view) {
+
+            }
+        });
         Handler mainHandler = new Handler();
         HandlerThread handlerThread = new HandlerThread("ser");
         handlerThread.start();
@@ -1634,6 +1661,7 @@ public class TestDragActivity extends AppCompatActivity {
                 Log.i(TAG, "postDelayed: ");
                 startWeatherAnim();
                 startDateAnim();
+//                startOilAnim();
             }
         }, 2000);
     }

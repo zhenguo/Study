@@ -93,6 +93,28 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--    <com.quxiangtech.customViews.dashboardview.view.DashboardView-->
+    <!--        android:background="@android:color/holo_red_dark"-->
+    <!--        android:id="@+id/panView"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:text="当前速度"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/weather40View"-->
+    <!--        app:unit="m/s" />-->
+
+    <com.quxiangtech.customViews.dashboardview.view.SeresDashBordView
+        android:id="@+id/dashbord"
+        android:layout_width="0dp"
+        android:layout_height="178dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <com.quxiangtech.customViews.CircleDragView
         android:layout_width="100dp"
         android:layout_height="100dp"
