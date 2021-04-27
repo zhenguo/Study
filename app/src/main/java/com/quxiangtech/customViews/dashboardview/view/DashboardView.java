@@ -181,8 +181,11 @@ public class DashboardView extends View {
         mOilProgressPaint.setStrokeWidth(20);
         mOilProgressPaint.setStrokeCap(Paint.Cap.ROUND);
         SweepGradient shader = new SweepGradient(0, 0, new int[]{
-                Color.parseColor("#33B5E5"),
-                Color.parseColor("#D7EBF3"),
+                Color.parseColor("#F4F5F6"),
+                Color.parseColor("#FAAC7C"),
+                Color.parseColor("#FAAC7C"),
+                Color.parseColor("#FF7828"),
+                Color.parseColor("#FF7828"),
         }, new float[]{0.3f, 0.8f});
 
         mOilProgressPaint.setShader(shader);

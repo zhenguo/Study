@@ -8,11 +8,13 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
-public class GradientTestView extends View {
+public class LeiDaTestView extends View {
+    private static final String TAG = "GradientTestView";
     private Paint mPaint;
     private SweepGradient mSweepGradient;
     private Matrix mMatrix;
@@ -22,18 +24,18 @@ public class GradientTestView extends View {
     /**
      * 旋转的角度
      **/
-    private int degree = 135;
+    private int degree = 0;
 
-    public GradientTestView(Context context) {
+    public LeiDaTestView(Context context) {
         super(context);
     }
 
-    public GradientTestView(Context context, @Nullable AttributeSet attrs) {
+    public LeiDaTestView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initInternal();
     }
 
-    public GradientTestView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LeiDaTestView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -45,6 +47,18 @@ public class GradientTestView extends View {
         rectF = new RectF();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.STROKE);
+
+        String key = "test";
+        /*
+        0000 0000 0011 0110 0100 0100 1001 0010
+        0000 0000 0000 0000 0000 0000 0011 0110
+        0000 0000 0011 0110 0100 0100 1010 0100
+        0000 0000 0011 0110 0100 0100 1010 0100
+        */
+
+        Log.d(TAG, "init: " + Integer.toBinaryString(key.hashCode()));
+        Log.d(TAG, "initInternal: " + Integer.toBinaryString(key.hashCode() >>> 16));
+        Log.d(TAG, "initInternal: " + Integer.toBinaryString(key.hashCode() ^ (key.hashCode() >>> 16)));
     }
 
     @Override
@@ -91,8 +105,8 @@ public class GradientTestView extends View {
         mSweepGradient.setLocalMatrix(mMatrix);
         mMatrix.setRotate(degree, mWidth / 2, mWidth / 2);
         degree++;
-        if (degree > 225) {
-            degree = 135;
+        if (degree > 360) {
+            degree = 0;
         }
         postInvalidate();
     }
