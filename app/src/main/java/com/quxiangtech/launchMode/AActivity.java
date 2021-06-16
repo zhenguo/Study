@@ -17,7 +17,7 @@ public class AActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate: " + this.hashCode());
+        Log.i(TAG, "onCreate: " + getTaskId());
 
         setContentView(R.layout.layout_a);
         findViewById(R.id.text_home).setOnClickListener(new View.OnClickListener() {

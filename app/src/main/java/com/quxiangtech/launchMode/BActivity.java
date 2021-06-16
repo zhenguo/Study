@@ -15,6 +15,7 @@ public class BActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: " + getTaskId());
         setContentView(R.layout.layout_b);
         findViewById(R.id.text_home).setOnClickListener(new View.OnClickListener() {
             @Override

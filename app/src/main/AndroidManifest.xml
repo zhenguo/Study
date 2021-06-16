@@ -32,10 +32,10 @@
             android:launchMode="singleInstance" />
         <activity
             android:name="com.quxiangtech.launchMode.BActivity"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleTask" />
         <activity
             android:name="com.quxiangtech.launchMode.AActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:taskAffinity="com.study.affinity" />
         <activity
             android:name=".MainActivity"
