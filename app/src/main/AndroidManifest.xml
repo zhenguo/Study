@@ -11,34 +11,34 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <instrumentation
-        android:name="com.quxiangtech.keeplive.ViInstrumentation"
+        android:name="com.qihoo.keeplive.ViInstrumentation"
         android:targetPackage="${applicationId}"
         android:targetProcesses="${applicationId},${applicationId}:resident" />
 
     <application
-        android:name=".TestApplication"
+        android:name="com.qihoo.myapplication.TestApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name="com.quxiangtech.customViews.TestDragActivity"></activity>
+        <activity android:name="com.qihoo.customViews.TestDragActivity"></activity>
         <activity
-            android:name="com.quxiangtech.launchMode.DActivity"
+            android:name="com.qihoo.launchMode.DActivity"
             android:launchMode="singleInstance" />
         <activity
-            android:name="com.quxiangtech.launchMode.CActivity"
+            android:name="com.qihoo.launchMode.CActivity"
             android:launchMode="singleInstance" />
         <activity
-            android:name="com.quxiangtech.launchMode.BActivity"
+            android:name="com.qihoo.launchMode.BActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.quxiangtech.launchMode.AActivity"
+            android:name="com.qihoo.launchMode.AActivity"
             android:launchMode="singleTask"
             android:taskAffinity="com.study.affinity" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.qihoo.myapplication.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyApplication.Launcher">
             <intent-filter>
@@ -47,16 +47,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.quxiangtech.JiaGuActivity" />
-        <activity android:name="com.quxiangtech.ZRouteTestActivity"></activity>
-        <activity android:name="com.quxiangtech.plugin.ProxyActivity" />
-        <activity android:name="com.quxiangtech.injectView.InjectActivity" />
-        <activity android:name="com.quxiangtech.anr.ANRActivity" />
-        <activity android:name="com.quxiangtech.binder.localBinder.BindingActivity" />
-        <activity android:name="com.quxiangtech.clickevent.ClickActivity" />
+        <activity android:name="com.qihoo.JiaGuActivity" />
+        <activity android:name="com.qihoo.ZRouteTestActivity"></activity>
+        <activity android:name="com.qihoo.plugin.ProxyActivity" />
+        <activity android:name="com.qihoo.injectView.InjectActivity" />
+        <activity android:name="com.qihoo.anr.ANRActivity" />
+        <activity android:name="com.qihoo.binder.localBinder.BindingActivity" />
+        <activity android:name="com.qihoo.clickevent.ClickActivity" />
+        <activity android:name="com.qihoo.ScrollUpActivity" />
 
         <service
-            android:name=".MotionDetectorService"
+            android:name="com.qihoo.myapplication.MotionDetectorService"
             android:enabled="true"
             android:exported="false"
             android:process=":motion_detector">
@@ -64,11 +65,11 @@
                 <action android:name="custom.intent.action.motion" />
             </intent-filter>
         </service>
-        <service android:name=".RemoteService" />
+        <service android:name="com.qihoo.myapplication.RemoteService" />
         <service
-            android:name="com.quxiangtech.binder.ServiceManagerService"
+            android:name="com.qihoo.binder.ServiceManagerService"
             android:process=":service_manager" />
-        <service android:name="com.quxiangtech.binder.localBinder.LocalService" />
+        <service android:name="com.qihoo.binder.localBinder.LocalService" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -77,10 +78,10 @@
             tools:node="merge">
 
             <meta-data
-                android:name="com.quxiangtech.startup.HotFixInitializer"
+                android:name="com.qihoo.startup.HotFixInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="com.quxiangtech.startup.PluginInitializer"
+                android:name="com.qihoo.startup.PluginInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

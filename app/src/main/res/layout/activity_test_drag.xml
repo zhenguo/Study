@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2E92BE"
-    tools:context="com.quxiangtech.customViews.TestDragActivity">
+    tools:context="com.qihoo.customViews.TestDragActivity">
 
     <!--    <com.quxiangtech.customViews.FlowLayout-->
     <!--        android:layout_width="match_parent"-->
@@ -80,7 +80,7 @@
     <!--    </com.quxiangtech.customViews.FlowLayout>-->
 
 
-    <com.quxiangtech.customViews.Weather40View
+    <com.qihoo.customViews.Weather40View
         android:id="@+id/weather40View"
         android:layout_width="match_parent"
         android:layout_height="238dp"
@@ -105,7 +105,7 @@
     <!--        app:layout_constraintTop_toBottomOf="@+id/weather40View"-->
     <!--        app:unit="m/s" />-->
 
-    <com.quxiangtech.customViews.dashboardview.view.SeresDashBordView
+    <com.qihoo.customViews.dashboardview.view.SeresDashBordView
         android:id="@+id/dashbord"
         android:layout_width="0dp"
         android:layout_height="178dp"
@@ -115,7 +115,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <com.quxiangtech.customViews.CircleDragView
+    <com.qihoo.customViews.CircleDragView
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,120 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.home.HomeFragment">
+    tools:context="com.qihoo.myapplication.ui.home.HomeFragment">
 
-    <Button
-        android:id="@+id/text_home"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        android:orientation="vertical">
 
-    <Button
-        android:text="Z路由测试"
-        android:id="@+id/zroute_test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <Button
+            android:text="上滑动画"
+            android:id="@+id/text_scroll_up_demo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/plugin_test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="插件化测试"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/text_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/launch_mode_test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="启动模式测试"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/zroute_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Z路由测试"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/inject_view_test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="View注入测试"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/plugin_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="插件化测试"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/reslove_activity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="验证Activity注册"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/launch_mode_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="启动模式测试"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/anr_test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="ANR相关"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/inject_view_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="View注入测试"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/local_binder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="本地Binder"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/reslove_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="验证Activity注册"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/event_comflict"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="事件冲突"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/anr_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="ANR相关"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/view_anim"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="自定义View动画"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/local_binder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="本地Binder"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/event_comflict"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="事件冲突"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/view_anim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="自定义View动画"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+    </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>
