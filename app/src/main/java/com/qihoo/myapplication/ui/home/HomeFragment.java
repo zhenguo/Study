@@ -19,15 +19,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.qihoo.coordinator.ScrollUpActivity;
 import com.qihoo.anr.ANRActivity;
 import com.qihoo.binder.localBinder.BindingActivity;
 import com.qihoo.clickevent.ClickActivity;
+import com.qihoo.coordinator.ScrollUpActivity;
 import com.qihoo.customViews.TestDragActivity;
 import com.qihoo.injectView.InjectActivity;
 import com.qihoo.launchMode.AActivity;
-import com.quxiangtech.myapplication.R;
 import com.qihoo.zrouter.ZRouter;
+import com.quxiangtech.myapplication.R;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -174,6 +174,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), ScrollUpActivity.class));
+            }
+        });
+        root.findViewById(R.id.ams_reflection).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ActivityManagerServiceOreo.Companion.openContentUri("");
             }
         });
         return root;

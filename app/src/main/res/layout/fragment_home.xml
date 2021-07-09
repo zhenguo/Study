@@ -11,13 +11,13 @@
         android:orientation="vertical">
 
         <Button
-            android:text="上滑动画"
             android:id="@+id/text_scroll_up_demo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:text="上滑动画"
             android:textAlignment="center"
             android:textSize="20sp" />
 
@@ -129,7 +129,21 @@
             android:text="自定义View动画"
             android:textAlignment="center"
             android:textSize="20sp" />
-    </LinearLayout>
 
+        <Button
+            android:id="@+id/ams_reflection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="AMS调用相关"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+    </LinearLayout>
 
 </ScrollView>
