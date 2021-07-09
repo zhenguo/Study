@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.qihoo.ScrollUpActivity;
+import com.qihoo.coordinator.ScrollUpActivity;
 import com.qihoo.anr.ANRActivity;
 import com.qihoo.binder.localBinder.BindingActivity;
 import com.qihoo.clickevent.ClickActivity;

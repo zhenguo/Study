@@ -17,7 +17,7 @@ import java.util.List;
 import dalvik.system.PathClassLoader;
 
 public class HotFix {
-    private static HotFix sInstance;
+    private static volatile HotFix sInstance;
 
     public static HotFix getInstance() {
         if (sInstance == null) {

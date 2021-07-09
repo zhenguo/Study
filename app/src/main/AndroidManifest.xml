@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- 最后两个权限是 SD 卡访问权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <permission android:name="android.permission.kma"/>
 
     <instrumentation
         android:name="com.qihoo.keeplive.ViInstrumentation"
@@ -54,7 +55,9 @@
         <activity android:name="com.qihoo.anr.ANRActivity" />
         <activity android:name="com.qihoo.binder.localBinder.BindingActivity" />
         <activity android:name="com.qihoo.clickevent.ClickActivity" />
-        <activity android:name="com.qihoo.ScrollUpActivity" />
+        <activity
+            android:name="com.qihoo.coordinator.ScrollUpActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name="com.qihoo.myapplication.MotionDetectorService"
@@ -70,6 +73,8 @@
             android:name="com.qihoo.binder.ServiceManagerService"
             android:process=":service_manager" />
         <service android:name="com.qihoo.binder.localBinder.LocalService" />
+        <service android:name="com.qihoo.multiprocess.MPBinderProvider" android:exported="true"
+            android:permission="android.permission.kma" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
